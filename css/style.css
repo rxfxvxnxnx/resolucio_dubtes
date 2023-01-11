@@ -1,0 +1,44 @@
+html {
+    scroll-behavior: smooth;
+}
+
+h1 {
+    color: rgb(202, 202, 202);
+}
+
+.title {
+    font-size: 28px;
+    font-weight: bold;
+    color: white;
+}
+
+.boto {
+    margin-top: 80px;
+}
+
+.pointer {
+    cursor: pointer;
+}
+
+.text_center {
+    text-align: center;
+}
+
+.linea {
+    border: #CACACA 1px solid;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.menu_desple {
+    background-color: #19232B; 
+    width: 100%;
+}
+
+#menu {
+    display: none;
+}
+
+#card {
+    background-color: #19232B !important;
+}
