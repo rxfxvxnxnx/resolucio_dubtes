@@ -41,8 +41,9 @@ aside {
     width: 100%;
 }
 
-.login input {
-    text-align: center;
+.login {
+    max-width: 500px;
+    margin: auto;
 }
 
 #menu {

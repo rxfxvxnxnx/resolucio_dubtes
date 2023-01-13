@@ -20,7 +20,7 @@
     $email_C = false;
     $user = $_REQUEST["user"];
     $user_C = false;
-    $pass = $_REQUEST["pass"];
+    $pass = md5($_REQUEST["pass"]);
     
     $sql = "SELECT * FROM usuarios";
     $usuarios = mysqli_query($con,$sql) or exit(mysqli_error($con));
@@ -33,11 +33,15 @@
             $user_C = true;
         }
     }
-
-    if ($user_C == true || $email_C == true) { ?>
+    if (!str_contains($email, "@insdanielblanxart.cat")){ ?>
         <main class="container">       
-            <h1>Usuari Ya Existent.</h1>
-            <a href="../../index.php"><button>Tornar</button></a>
+            <h1>Has de Utilitzar el Domini @insdanielblanxart.cat</h1>
+            <a href="registre.php"><button>Tornar</button></a>
+        </main>
+    <?php }else if ($user_C == true || $email_C == true) { ?>
+        <main class="container">       
+            <h1>Usuari o Email Ya Agafat</h1>
+            <a href="registre.php"><button>Tornar</button></a>
         </main>
     <?php }else {
     $sql = "INSERT INTO usuarios VALUES (null,'".$nom."','".$cognom."','".$email."','".$user."','".$pass."', 2)";

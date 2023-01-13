@@ -26,9 +26,9 @@
             <label for="user">User:</label>
             <input name="user" type="text" placeholder="Username" required>
             <label for="pass">Password:</label>
-            <input name="pass" type="text" placeholder="Password" required>
+            <input name="pass" type="password" placeholder="Password" required>
             <footer>
-                <input type="submit" value="Iniciar sesión">
+                <input type="submit" value="Registrat">
             </footer>
         </form>
         <footer>
