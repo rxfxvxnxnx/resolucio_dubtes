@@ -18,7 +18,7 @@ if (empty($_SESSION["usuario"]) || $_SESSION["permis"] == 2) {
     <link rel="stylesheet" href="../../style.css">
     <link rel="stylesheet" href="../../css/pico.min.css">
 </head>
-<body class="container"></body>                
+<body class="container">             
         <article>
             <h1>Afegir nou exercici.</h1>
             <form action="exercicis_create_save.php" method="POST">

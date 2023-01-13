@@ -22,15 +22,26 @@
             <label for="pass">Password:</label>
             <input name="pass" type="password" placeholder="Password">
             <footer>
-                <input type="submit" value="Iniciar sesión">
+                <input type="submit" value="Iniciar Sesión">
             </footer>
         </form>
         <footer>
             <p>Si encara no estas registrat. <a href="pages/registre/registre.php">Registrat.</a></p>
         </footer>
     </article>
-    <footer>
-        
+
+    <footer id="footer">
+        <div>
+            <img src="img/logo.png" class="logo">
+        </div>
+        <div>
+            <p>
+                Made by Javier Cecilia & Rafael Luiz Duarte © <?php echo date("Y"); ?>
+            </p>
+        </div>
+        <div>
+            <a href="#"><img src="img/arrow-up_icon-rev.png" class="flecha"></a>
+        </div>
     </footer>
 </body>
 </html>

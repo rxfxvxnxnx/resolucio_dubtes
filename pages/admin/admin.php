@@ -21,13 +21,15 @@ if (empty($_SESSION["usuario"]) || $_SESSION["permis"] == 2) {
 <body class="container"></body>                
     <?php
         $con = mysqli_connect("localhost","rduart","u8EnMnxo#","rduart") or exit(mysqli_connect_error());
-        $sql = "SELECT * FROM consultes WHERE acabada='0'";
-        $consultes = mysqli_query($con,$sql) or exit(mysqli_error($con));
-        $vacio = mysqli_fetch_array($consultes);
 
         $sql = "SELECT * FROM usuarios WHERE usuario = '".$_SESSION["usuario"]."'";
         $usuarios = mysqli_query($con,$sql) or exit(mysqli_error($con));
         $usuario = mysqli_fetch_array($usuarios);
+
+        $sql = "SELECT * FROM consultes WHERE acabada='0' AND profesor_FK = ".$usuario["id_usuario"];
+        $consultes = mysqli_query($con,$sql) or exit(mysqli_error($con));
+        $vacio = mysqli_fetch_array($consultes);
+
     ?>
     <header>
         <nav>
@@ -50,9 +52,10 @@ if (empty($_SESSION["usuario"]) || $_SESSION["permis"] == 2) {
             </nav>
         </aside>
     </header>
+
     <main>
         <?php 
-        $sql = "SELECT * FROM consultes WHERE acabada='0'";
+        $sql = "SELECT * FROM consultes WHERE acabada='0' AND profesor_FK = ".$usuario["id_usuario"];
         $consultes_no = mysqli_query($con,$sql) or exit(mysqli_error($con));
         $vacio = mysqli_fetch_array($consultes_no); 
         ?>
@@ -61,10 +64,9 @@ if (empty($_SESSION["usuario"]) || $_SESSION["permis"] == 2) {
                 <h1 aria-busy="true">No tens dubtes que asolir, si us plau espera a que els alumnes tinguin dubtes.</h1>
             </article>
         <?php } else { ?>
-
             <article id="1">
                 <?php
-                $sql = "SELECT * FROM consultes WHERE acabada='0' LIMIT 1";
+                $sql = "SELECT * FROM consultes WHERE acabada = '0' AND profesor_FK = ".$usuario["id_usuario"]." LIMIT 1";
                 $torns = mysqli_query($con,$sql) or exit(mysqli_error($con));
                 $torn = mysqli_fetch_array($torns);
                 ?>
@@ -172,47 +174,56 @@ if (empty($_SESSION["usuario"]) || $_SESSION["permis"] == 2) {
                     </table>
                 </figure>
             </article>
-
         <?php } ?>
         
+        <?php
+        $sql = "SELECT * FROM moduls WHERE profesor = ".$usuario["id_usuario"];
+        $moduls = mysqli_query($con,$sql) or exit(mysqli_error($con));
+        while($modul = mysqli_fetch_array($moduls)){
+        ?>
         
         <article id="3">                
             <div style="display: flex; justify-content: space-between;">
-                    <h1> Exercicis.</h1>
+                    <h1><?php echo $modul["modul"] ?>.</h1>
                     <!-- Icono Crear nuevo ejercicio -->
                     <a href="../exercicis/exercicis_create.php"><img src="../../img/plus_icon.png" width="37px"></a>
-                </div>
+            </div>
             <figure>
-                <table role="grid">
-                    <?php 
-                    $sql = "SELECT * FROM moduls WHERE profesor = ".$usuario["id_usuario"];
-                    $moduls = mysqli_query($con,$sql) or exit(mysqli_error($con));
-                    $modul = mysqli_fetch_array($moduls);
+                <?php 
+                $sql = "SELECT * FROM moduls WHERE profesor = ".$usuario["id_usuario"];
+                $moduls2 = mysqli_query($con,$sql) or exit(mysqli_error($con));
+                $modul2 = mysqli_fetch_array($moduls2);
 
-                    $sql = "SELECT * FROM exercicis WHERE modul_FK = ".$modul["id_modul"];
-                    $exercicis = mysqli_query($con,$sql) or exit(mysqli_error($con));
-                    ?>
-                    <thead>
-                        <tr>
-                            <th>Exercici</th>
-                            <th>Opcions</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php while($exercici = mysqli_fetch_array($exercicis)) { ?>
-                        <tr>
-                            <td>
-                                <?php echo $exercici["exercici"] ?>
-                            </td>
-                            <td>
-                                <a href="../exercicis/exercicis_delete.php?id_exercici=<?php echo $exercici['id_exercici']?>">Eliminar</a>
-                            </td>
-                        </tr>
-                        <?php } ?>
-                    </tbody>
+                $sql = "SELECT * FROM exercicis WHERE modul_FK = ".$modul["id_modul"]." ORDER BY exercici ASC";
+                $exercicis = mysqli_query($con,$sql) or exit(mysqli_error($con));
+                ?>
+                <table role="grid">
+                        <thead>
+                            <tr>
+                                <th colspan=2><h3><?php echo $modul["uf"] ?></h3></th>
+                            </tr>
+                            <tr>
+                                <th>Exercici</th>
+                                <th>Opcions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php while($exercici = mysqli_fetch_array($exercicis)) { ?>
+                            <tr>
+                                <td>
+                                    <?php echo $exercici["exercici"] ?>
+                                </td>
+                                <td>
+                                    <a href="../exercicis/exercicis_edit.php?id_exercici=<?php echo $exercici['id_exercici']?>">Editar</a>
+                                    <a href="../exercicis/exercicis_delete.php?id_exercici=<?php echo $exercici['id_exercici']?>">Eliminar</a>
+                                </td>
+                            </tr>
+                            <?php } ?>
+                        </tbody>
                 </table>
             </figure>
         </article>
+        <?php } ?>
 
         <?php
         $sql="SELECT * FROM consultes WHERE NOT resposta = ''";
@@ -235,23 +246,35 @@ if (empty($_SESSION["usuario"]) || $_SESSION["permis"] == 2) {
                         <div class="card">
                             <h1 class="text_center">
                                 <?php
-                                $sql = "SELECT * FROM alumnes WHERE id_alumne =".$consulta["alumne_FK"];
-                                $alumnes = mysqli_query($con,$sql) or exit(mysqli_error($con));
-                                $alumne = mysqli_fetch_array($alumnes);
-                                echo $alumne["nom"]." ".$alumne["cognom"];
+                                $sql = "SELECT * FROM usuarios WHERE id_usuario =".$consulta["usuario_consulta_FK"];
+                                $usuaris_so = mysqli_query($con,$sql) or exit(mysqli_error($con));
+                                $usuari_so = mysqli_fetch_array($usuaris_so);
+                                echo $usuari_so["nom"]." ".$usuari_so["cognom"];
                                 ?>
                             </h1>
                             <div class="linea"></div>
                             <div>
-                                <h3>Exercici:</h3>  
-                                <p>
-                                <?php 
+                                <?php
                                 $sql = "SELECT * FROM exercicis WHERE id_exercici =".$consulta["exercici_FK"];
                                 $exercicis = mysqli_query($con,$sql) or exit(mysqli_error($con));
                                 $exercici = mysqli_fetch_array($exercicis);
+                                
+                                $sql = "SELECT * FROM moduls WHERE id_modul = ".$exercici["modul_FK"];
+                                $moduls_ex = mysqli_query($con,$sql) or exit(mysqli_error($con));
+                                $modul_ex = mysqli_fetch_array($moduls_ex);
+                                ?>
+                                <h3 class="text_center">
+                                <?php
+                                echo $modul_ex["modul"]." ".$modul_ex["uf"];
+                                ?>
+                                </h3>
+                            </div>
+                            <div>
+                                <h3 class="text_center">
+                                <?php 
                                 echo $exercici["exercici"];
                                 ?>
-                                </p>
+                                </h3>
                             </div>
                             <div>
                                 <h3>Problema:</h3>
@@ -284,8 +307,21 @@ if (empty($_SESSION["usuario"]) || $_SESSION["permis"] == 2) {
     <?php } ?>
 
     </main>
-    <footer>
+
+    <footer id="footer">
+        <div>
+            <img src="../../img/logo.png" class="logo">
+        </div>
+        <div>
+            <p>
+                Made by Javier Cecilia & Rafael Luiz Duarte © <?php echo date("Y"); ?>
+            </p>
+        </div>
+        <div>
+            <a href="#"><img src="../../img/arrow-up_icon-rev.png" class="flecha"></a>
+        </div>
     </footer>
+
     <script src="../../js/script.js"></script>
 </body>
 </html>

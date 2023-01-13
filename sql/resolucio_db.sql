@@ -65,6 +65,9 @@ CREATE TABLE consultes (
     exercici_FK INT,
     FOREIGN KEY (exercici_FK) REFERENCES exercicis(id_exercici),
 
+    profesor_FK INT,
+    FOREIGN KEY (profesor_FK) REFERENCES usuarios(id_usuario),
+
     comentari LONGTEXT,
 
     hora VARCHAR(100),
@@ -122,6 +125,6 @@ INSERT INTO exercicis VALUES
     (19, 4, "Exercici 9. Accés a arrays i llistes");
 
 INSERT INTO consultes VALUES
-    (1, 5, 19, "Lorem ipsum dolor sit amet, consectet", "18:32:34 pm", "2022-12-19", null, 0),
-    (2, 6, 8, "Lorem ipsum dolor sit amet, consectet", "18:32:34 pm", "2022-12-19", "Lorem ipsum dolor sit amet, consectet", 1),
-    (3, 6, 13, "Lorem ipsum dolor sit amet, consectet", "18:32:34 pm", "2022-12-19", null, 0);
+    (1, 5, 19, 1, "Lorem ipsum dolor sit amet, consectet", "18:32:34 pm", "2022-12-19", null, 0),
+    (2, 6, 8, 2, "Lorem ipsum dolor sit amet, consectet", "18:32:34 pm", "2022-12-19", "Lorem ipsum dolor sit amet, consectet", 1),
+    (3, 6, 13, 1, "Lorem ipsum dolor sit amet, consectet", "18:32:34 pm", "2022-12-19", null, 0);

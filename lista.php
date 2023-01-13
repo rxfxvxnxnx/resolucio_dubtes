@@ -35,68 +35,29 @@ if (empty($_SESSION["usuario"])) {
         </nav>
     </header>
     <main>      
-        <div class="grid">
-            <article>
-                <h1>Formulari.</h1>
-                <form action="pages/consultes/consultes_save.php" method="POST">
+        <article>
+            <h1>Formulari.</h1>
+            <form action="pages/consultes/consultes_save.php" method="POST">
 
-                        <label for="exercici">Exercici:
-                            <select name="exercici" id="exercici">
-                                <?php 
-                                    $sql = "SELECT * FROM exercicis";
-                                    $exercicis_select = mysqli_query($con,$sql) or exit(mysqli_error($con));
-                                ?>
-                                <?php while($exercici_select = mysqli_fetch_array($exercicis_select)){ ?>
-                                    <option value="<?php echo $exercici_select["id_exercici"] ?>">
-                                        <?php echo $exercici_select["exercici"] ?>
-                                    </option>
-                                <?php } ?>
-                            </select>
-                        </label>
-                    </div>
-
-                    <label for="comentari">Comentari:</label>
-                    <textarea name="comentari" id="comentari" type="text" required></textarea>
-
-                    <input type="submit" value="Enviar" role="button" class="boto">
-                </form>
-            </article>
-            <article>
-                <h1>Torns.</h1>
-                <figure>
-                    <table role="grid">
-                        <thead>
-                            <tr>
-                                <th>Ordre</th>
-                                <th>Alumne</th>
-                                <th>Hora</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php $i = 0; while($consulte = mysqli_fetch_array($consultes)) { $i++; ?>
-                            <tr>
-                                <td>
-                                    <?php echo $i; ?>
-                                </td>
-                                <td>
-                                    <?php 
-                                    $sql = "SELECT * FROM alumnes WHERE id_alumne =".$consulte["alumne_FK"];
-                                    $alumnes = mysqli_query($con,$sql) or exit(mysqli_error($con));
-                                    $alumne = mysqli_fetch_array($alumnes);
-                                    echo $alumne["nom"]." ".$alumne["cognom"];
-                                    ?>
-                                </td>
-                                <td>
-                                    <?php echo $consulte["hora"] ?>
-                                </td>
-                            </tr>
+                    <label for="exercici">Exercici:>
+                        <select name="exercici" id="exercici">
+                            <?php 
+                                $sql = "SELECT * FROM exercicis";
+                                $exercicis_select = mysqli_query($con,$sql) or exit(mysqli_error($con));
+                            ?>
+                            <?php while($exercici_select = mysqli_fetch_array($exercicis_select)){ ?>
+                                <option value="<?php echo $exercici_select["id_exercici"] ?>">
+                                    <?php echo $exercici_select["exercici"] ?>
+                                </option>
                             <?php } ?>
-                        </tbody>
-                    </table>
-                </figure>
-            </article>
+                        </select>
 
-        </div> 
+                <label for="comentari">Comentari:</label>
+                <textarea name="comentari" id="comentari" type="text" required></textarea>
+
+                <input type="submit" value="Enviar" role="button" class="boto">
+            </form>
+        </article>
 
         <?php
         $sql="SELECT * FROM consultes WHERE NOT resposta = ''";
@@ -114,31 +75,55 @@ if (empty($_SESSION["usuario"])) {
                 while($consulte_so = mysqli_fetch_array($consultes_so)) { ?>
                     <article id="card">
                         <div class="card">
-                            <h1 class="text_center">
-                            <?php 
-                                $sql = "SELECT * FROM alumnes WHERE id_alumne =".$consulte_so["alumne_FK"];
-                                $alumnes_so = mysqli_query($con,$sql) or exit(mysqli_error($con));
-                                $alumne_so = mysqli_fetch_array($alumnes_so);
-                                echo $alumne_so["nom"]." ".$alumne_so["cognom"];
-                            ?>
+                        <h1 class="text_center">
+                                <?php
+                                $sql = "SELECT * FROM usuarios WHERE id_usuario =".$consulte_so["usuario_consulta_FK"];
+                                $usuaris_so = mysqli_query($con,$sql) or exit(mysqli_error($con));
+                                $usuari_so = mysqli_fetch_array($usuaris_so);
+                                echo $usuari_so["nom"]." ".$usuari_so["cognom"];
+                                ?>
                             </h1>
+                            <div>
+                                <?php
+                                $sql = "SELECT * FROM exercicis WHERE id_exercici =".$consulte_so["exercici_FK"];
+                                $exercicis = mysqli_query($con,$sql) or exit(mysqli_error($con));
+                                $exercici = mysqli_fetch_array($exercicis);
+                                
+                                $sql = "SELECT * FROM moduls WHERE id_modul = ".$exercici["modul_FK"];
+                                $moduls_ex = mysqli_query($con,$sql) or exit(mysqli_error($con));
+                                $modul_ex = mysqli_fetch_array($moduls_ex);
+                                ?>
+                                <h5 class="text_center">
+                                <?php
+                                echo $modul_ex["modul"]." ".$modul_ex["uf"];
+                                ?>
+                                </h5>
+                            </div>
+                            <div>
+                                <h5 class="text_center">
+                                <?php 
+                                echo $exercici["exercici"];
+                                ?>
+                                </h5>
+                            </div>
                             <div class="linea"></div>
                             <div>
-                                <h3>Exercici:</h3>
-                                <?php
-                                $sql = "SELECT * FROM exercicis WHERE id_exercici = ".$consulte_so["exercici_FK"];
-                                $exercicis = mysqli_query($con,$sql) or exit(mysqli_error($con));
-                                $exercici = mysqli_fetch_array($exercicis); 
-                                ?>
-                                <p><?php echo $exercici["exercici"] ?></p>
-                            </div>
-                            <div>
                                 <h3>Problema:</h3>
-                                <p><?php echo $consulte_so["comentari"] ?></p>
+                                <p>
+                                <?php
+                                echo $consulte_so["comentari"];
+                                ?>
+                                </p>
+
                             </div>
                             <div>
-                                <h3>Solució:</h3>
-                                <p><?php echo $consulte_so["resposta"] ?></p>
+                                <h3>Solucio:</h3>
+                                <p>
+                                <?php
+                                echo $consulte_so["resposta"];
+                                ?>
+                                </p>
+
                             </div>
                             <div class="linea"></div>
                             <p class="text_center"><?php echo $consulte_so["date"] ?></p>
@@ -149,8 +134,19 @@ if (empty($_SESSION["usuario"])) {
         </article>
         <?php } ?>
     </main>
-    <footer>
 
+    <footer id="footer">
+        <div>
+            <img src="img/logo.png" class="logo">
+        </div>
+        <div>
+            <p>
+                Made by Javier Cecilia & Rafael Luiz Duarte © <?php echo date("Y"); ?>
+            </p>
+        </div>
+        <div>
+            <a href="#"><img src="img/arrow-up_icon-rev.png" class="flecha"></a>
+        </div>
     </footer>
 <script src="js/modal.js"></script>
 </body>
