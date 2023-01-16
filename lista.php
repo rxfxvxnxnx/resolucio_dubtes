@@ -21,6 +21,17 @@ if (empty($_SESSION["usuario"])) {
 <body class="container">              
     <?php
         $con = mysqli_connect("localhost","rduart","u8EnMnxo#","rduart") or exit(mysqli_connect_error());
+
+        $sql = "SELECT * FROM usuarios WHERE usuario = '".$_SESSION["usuario"]."'";
+        $usuarios_foto = mysqli_query($con,$sql) or exit(mysqli_error($con));
+        $usuario_foto = mysqli_fetch_array($usuarios_foto);
+
+        if ($usuario_foto["perfil_img"] == "") {
+            $foto_perfil = "default.png";
+        } else {
+            $foto_perfil = $usuario_foto["perfil_img"];
+        }
+
         $sql = "SELECT * FROM consultes WHERE acabada='0'";
         $consultes = mysqli_query($con,$sql) or exit(mysqli_error($con));
     ?>
@@ -31,12 +42,13 @@ if (empty($_SESSION["usuario"])) {
             </ul>
             <ul>
                 <li><strong class="title"><?php echo $_SESSION["usuario"] ?>.</strong></li>
-            </ul>      
-            <details role="list"><summary><img class="profile" src="./img/user_img/default.png"></summary>
-            <ul>
-                <li><a href="./pages/perfil/perfil_edit.php">Editar perfil</a></li>
-                <li><a href="./php/logout.php">Logout</a></li>
             </ul>
+            <details role="list" dir="rtl">
+                <summary><img class="profile" src="./img/user_img/<?php echo $foto_perfil ?>"></summary>
+                <ul>
+                    <li><a href="./pages/perfil/perfil_edit.php">Editar perfil</a></li>
+                    <li><a href="./php/logout.php">Logout</a></li>
+                </ul>
             </details>
         </nav>
         <aside id="menu">

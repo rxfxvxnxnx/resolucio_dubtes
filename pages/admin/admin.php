@@ -26,6 +26,12 @@ if (empty($_SESSION["usuario"]) || $_SESSION["permis"] == 2) {
         $usuarios = mysqli_query($con,$sql) or exit(mysqli_error($con));
         $usuario = mysqli_fetch_array($usuarios);
 
+        if ($usuario["perfil_img"] == "") {
+            $foto_perfil = "default.png";
+        } else {
+            $foto_perfil = $usuario["perfil_img"];
+        }
+
         $sql = "SELECT * FROM consultes WHERE acabada='0' AND profesor_FK = ".$usuario["id_usuario"];
         $consultes = mysqli_query($con,$sql) or exit(mysqli_error($con));
         $vacio = mysqli_fetch_array($consultes);
@@ -38,10 +44,14 @@ if (empty($_SESSION["usuario"]) || $_SESSION["permis"] == 2) {
             </ul>
             <ul>
                 <li><strong class="title"><?php echo $_SESSION["usuario"] ?>.</strong></li>
-            </ul>
+            </ul>      
+            <details role="list" dir="rtl">
+            <summary><img class="profile" src="../../img/user_img/<?php echo $foto_perfil ?>"></summary>
             <ul>
-                <li class="pointer"><a href="../../php/logout.php"><img src="../../img/login_icon.png" alt="" width="30px"></a></li>
+                <li><a href="../../pages/perfil/perfil_edit.php">Editar perfil</a></li>
+                <li><a href="../../php/logout.php">Logout</a></li>
             </ul>
+            </details>
         </nav>
         <aside id="menu">
             <nav class="menu_desple">

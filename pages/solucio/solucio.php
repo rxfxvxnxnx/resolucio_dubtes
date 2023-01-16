@@ -21,6 +21,15 @@ if (empty($_SESSION["usuario"]) || $_SESSION["permis"] == 2) {
 <body class="container">
     <?php
         $con = mysqli_connect("localhost","rduart","u8EnMnxo#","rduart") or exit(mysqli_connect_error());
+        $sql = "SELECT * FROM usuarios WHERE usuario = '".$_SESSION["usuario"]."'";
+        $usuarios_foto = mysqli_query($con,$sql) or exit(mysqli_error($con));
+        $usuario_foto = mysqli_fetch_array($usuarios_foto);
+
+        if ($usuario_foto["perfil_img"] == "") {
+            $foto_perfil = "default.png";
+        } else {
+            $foto_perfil = $usuario_foto["perfil_img"];
+        }
     ?>
     <header>
         <nav>
@@ -34,9 +43,13 @@ if (empty($_SESSION["usuario"]) || $_SESSION["permis"] == 2) {
                     </form>
                 </li>
             </ul>
-            <ul>
-                <li class="pointer"><a href="../../php/logout.php"><img src="../../img/login_icon.png" alt="" width="30px"></a></li>
-            </ul>
+            <details role="list" dir="rtl">
+                <summary><img class="profile" src="../../img/user_img/<?php echo $foto_perfil ?>"></summary>
+                <ul>
+                    <li><a href="../../pages/perfil/perfil_edit.php">Editar perfil</a></li>
+                    <li><a href="../../php/logout.php">Logout</a></li>
+                </ul>
+            </details>
         </nav>
         <aside id="menu">
             <nav class="menu_desple">

@@ -22,6 +22,8 @@ CREATE TABLE usuarios (
 
     email VARCHAR(255),
 
+    perfil_img LONGTEXT,
+
     usuario VARCHAR(255),
 
     password VARCHAR(255),
@@ -85,12 +87,12 @@ INSERT INTO permis VALUES
     (2, "Alumne");
 
 INSERT INTO usuarios VALUES
-    (1, "Gerard", "Pala", "gpala@insdanielblanxart.cat", "gpala", "161ebd7d45089b3446ee4e0d86dbcf92", 1),
-    (2, "Manel", "Moles", "mmoles@insdanielblanxart.cat", "mmoles", "161ebd7d45089b3446ee4e0d86dbcf92", 1),
-    (3, "Javier", "Cecilia", "jceci@insdanielblanxart.cat", "jceci", "161ebd7d45089b3446ee4e0d86dbcf92", 0),
-    (4, "Rafael", "Luiz", "rduart@insdanielblanxart.cat", "rduart", "161ebd7d45089b3446ee4e0d86dbcf92", 0),
-    (5, "Alberto", "Wang", "awang@insdanielblanxart.cat", "awang", "161ebd7d45089b3446ee4e0d86dbcf92", 2),
-    (6, "Adria", "Vallejo", "avalle@insdanielblanxart.cat", "avalle", "161ebd7d45089b3446ee4e0d86dbcf92", 2);
+    (1, "Gerard", "Pala", "gpala@insdanielblanxart.cat", null, "gpala", "161ebd7d45089b3446ee4e0d86dbcf92", 1),
+    (2, "Manel", "Moles", "mmoles@insdanielblanxart.cat", null, "mmoles", "161ebd7d45089b3446ee4e0d86dbcf92", 1),
+    (3, "Javier", "Cecilia", "jceci@insdanielblanxart.cat", null, "jceci", "161ebd7d45089b3446ee4e0d86dbcf92", 0),
+    (4, "Rafael", "Luiz", "rduart@insdanielblanxart.cat", null, "rduart", "161ebd7d45089b3446ee4e0d86dbcf92", 0),
+    (5, "Alberto", "Wang", "awang@insdanielblanxart.cat", null, "awang", "161ebd7d45089b3446ee4e0d86dbcf92", 2),
+    (6, "Adria", "Vallejo", "avalle@insdanielblanxart.cat", null, "avalle", "161ebd7d45089b3446ee4e0d86dbcf92", 2);
     
 
 INSERT INTO moduls VALUES
