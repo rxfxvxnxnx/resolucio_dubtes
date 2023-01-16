@@ -18,7 +18,7 @@ if (empty($_SESSION["usuario"]) || $_SESSION["permis"] == 2) {
     <link rel="stylesheet" href="../../css/pico.min.css">
     <link rel="stylesheet" href="../../css/style.css">
 </head>
-<body class="container"></body>                
+<body class="container">               
     <?php
         $con = mysqli_connect("localhost","rduart","u8EnMnxo#","rduart") or exit(mysqli_connect_error());
 
@@ -57,7 +57,8 @@ if (empty($_SESSION["usuario"]) || $_SESSION["permis"] == 2) {
         <?php 
         $sql = "SELECT * FROM consultes WHERE acabada='0' AND profesor_FK = ".$usuario["id_usuario"];
         $consultes_no = mysqli_query($con,$sql) or exit(mysqli_error($con));
-        $vacio = mysqli_fetch_array($consultes_no); 
+        $vacio = mysqli_fetch_array($consultes_no);     
+
         ?>
         <?php if(empty($vacio["id_consulta"])){?>
             <article>
@@ -69,56 +70,86 @@ if (empty($_SESSION["usuario"]) || $_SESSION["permis"] == 2) {
                 $sql = "SELECT * FROM consultes WHERE acabada = '0' AND profesor_FK = ".$usuario["id_usuario"]." LIMIT 1";
                 $torns = mysqli_query($con,$sql) or exit(mysqli_error($con));
                 $torn = mysqli_fetch_array($torns);
+
+                $sql = "SELECT * FROM exercicis WHERE id_exercici = ".$torn["exercici_FK"];
+                $tornsEx = mysqli_query($con,$sql) or exit(mysqli_error($con));
+                $tornEx = mysqli_fetch_array($tornsEx);
+
+                $sql = "SELECT * FROM moduls WHERE id_modul = ".$tornEx["modul_FK"];
+                $modulsEx = mysqli_query($con,$sql) or exit(mysqli_error($con));
+                $modulEx = mysqli_fetch_array($modulsEx);
                 ?>
-                <h1>Torn de <?php 
-                                    $sql = "SELECT * FROM usuarios WHERE id_usuario = ".$torn["usuario_consulta_FK"];
-                                    $tornsAl = mysqli_query($con,$sql) or exit(mysqli_error($con));
-                                    $tornAl = mysqli_fetch_array($tornsAl);
-                                    echo $tornAl["nom"]." ".$tornAl["cognom"]; 
-                                    ?>.</h1>
+                <hgroup>
+                    <h1>Torn de <?php   $sql = "SELECT * FROM usuarios WHERE id_usuario = ".$torn["usuario_consulta_FK"];
+                                        $tornsAl = mysqli_query($con,$sql) or exit(mysqli_error($con));
+                                        $tornAl = mysqli_fetch_array($tornsAl);
+                                        echo $tornAl["nom"]." ".$tornAl["cognom"]; 
+                                        ?>.</h1>
+                    <h2><?php echo $modulEx["modul"] ?> - <?php echo $modulEx["uf"] ?></h2>
+                </hgroup>
+
+                <blockquote>
                 <figure>
                     <table role="grid">
                         <thead>
                             <tr>
                                 <th>Exercici</th>
-                                <th>Comentari</th>
                                 <th>Hora</th>
-                                <th>Opcions</th>
+                                <th>Data</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
                                 <td>
                                     <?php 
-                                    $sql = "SELECT * FROM exercicis WHERE id_exercici = ".$torn["exercici_FK"];
-                                    $tornsEx = mysqli_query($con,$sql) or exit(mysqli_error($con));
-                                    $tornEx = mysqli_fetch_array($tornsEx);
+
                                     echo $tornEx["exercici"]; 
                                     ?>
-                                </td>
-                                <td>
-                                    <?php echo $torn["comentari"] ?>
                                 </td>
                                 <td>
                                     <?php echo $torn["hora"] ?>
                                 </td>
                                 <td>
-                                    <a href="admin_insert.php?id_consulta=<?php echo $torn['id_consulta']?>">Eliminar</a>
+                                    <?php echo $torn["date"] ?>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <table role="grid">
+                        <thead>
+                            <tr>
+                                <th>Comentari</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <?php echo $torn["comentari"] ?>
                                 </td>
                             </tr>
                         </tbody>
                     </table>
                 </figure>
+                </blockquote>
 
                 <h1>Solucio.</h1>
                 <figure>
                     <form action="admin_insert.php?id_consulta=<?php echo $torn['id_consulta']?>" method="POST">
                         <textarea id="solucio" name="solucio"></textarea>
-                        <input type="submit" value="Envia o Acaba">
+                        <div class="grid">
+                            <input type="submit" value="Envia o Acaba">
+                            <button style="background-color:red;" onclick="location.href='admin_insert.php?id_consulta=<?php echo $torn['id_consulta']?>'">Elimina</button>
+                        </div>
+
                     </form>
                 </figure>
             </article>
 
+            <?php 
+            $consulteNumero = mysqli_num_rows($consultes);
+            if ($consulteNumero == 1){
+            } else { ?>
             <article id="2">
                 <h1>Llista.</h1>
                 <figure>
@@ -174,15 +205,15 @@ if (empty($_SESSION["usuario"]) || $_SESSION["permis"] == 2) {
                     </table>
                 </figure>
             </article>
+            <?php } ?>
         <?php } ?>
         
         <?php
         $sql = "SELECT * FROM moduls WHERE profesor = ".$usuario["id_usuario"];
         $moduls = mysqli_query($con,$sql) or exit(mysqli_error($con));
         while($modul = mysqli_fetch_array($moduls)){
-        ?>
-        
-        <article id="3">                
+        ?>        
+        <article id="3">        
             <div style="display: flex; justify-content: space-between;">
                     <h1><?php echo $modul["modul"] ?>.</h1>
                     <!-- Icono Crear nuevo ejercicio -->
@@ -220,9 +251,9 @@ if (empty($_SESSION["usuario"]) || $_SESSION["permis"] == 2) {
                             </tr>
                             <?php } ?>
                         </tbody>
-                </table>
-            </figure>
-        </article>
+                    </table>
+                </figure>
+            </article>
         <?php } ?>
 
         <?php

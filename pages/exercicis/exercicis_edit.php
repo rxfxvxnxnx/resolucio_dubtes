@@ -14,7 +14,7 @@ if (empty($_SESSION["usuario"]) || $_SESSION["permis"] == 2) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Resolucio de Dubtes</title>
 
-    <link rel="shortcut icon" href="img/icon.png" type="image/x-icon">
+    <link rel="shortcut icon" href="../../img/icon.png" type="image/x-icon">
     <link rel="stylesheet" href="../../style.css">
     <link rel="stylesheet" href="../../css/pico.min.css">
 </head>

@@ -85,12 +85,12 @@ INSERT INTO permis VALUES
     (2, "Alumne");
 
 INSERT INTO usuarios VALUES
-    (1, "Gerard", "Pala", "gpala@insdanielblanxart.cat", "gpala", "P@ssw0rd", 1),
-    (2, "Manel", "Moles", "mmoles@insdanielblanxart.cat", "mmoles", "P@ssw0rd", 1),
-    (3, "Javier", "Cecilia", "jceci@insdanielblanxart.cat", "jceci", "P@ssw0rd", 0),
-    (4, "Rafael", "Luiz", "rduart@insdanielblanxart.cat", "rduart", "P@ssw0rd", 0),
-    (5, "Alberto", "Wang", "awang@insdanielblanxart.cat", "awang", "P@ssw0rd", 2),
-    (6, "Adria", "Vallejo", "avalle@insdanielblanxart.cat", "avalle", "P@ssw0rd", 2);
+    (1, "Gerard", "Pala", "gpala@insdanielblanxart.cat", "gpala", "161ebd7d45089b3446ee4e0d86dbcf92", 1),
+    (2, "Manel", "Moles", "mmoles@insdanielblanxart.cat", "mmoles", "161ebd7d45089b3446ee4e0d86dbcf92", 1),
+    (3, "Javier", "Cecilia", "jceci@insdanielblanxart.cat", "jceci", "161ebd7d45089b3446ee4e0d86dbcf92", 0),
+    (4, "Rafael", "Luiz", "rduart@insdanielblanxart.cat", "rduart", "161ebd7d45089b3446ee4e0d86dbcf92", 0),
+    (5, "Alberto", "Wang", "awang@insdanielblanxart.cat", "awang", "161ebd7d45089b3446ee4e0d86dbcf92", 2),
+    (6, "Adria", "Vallejo", "avalle@insdanielblanxart.cat", "avalle", "161ebd7d45089b3446ee4e0d86dbcf92", 2);
     
 
 INSERT INTO moduls VALUES

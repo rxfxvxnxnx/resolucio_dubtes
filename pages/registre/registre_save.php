@@ -40,7 +40,7 @@
         </main>
     <?php }else if ($user_C == true || $email_C == true) { ?>
         <main class="container">       
-            <h1>Usuari o Email Ya Agafat</h1>
+            <h1>El Usuari o el Email Ja Esta Registrat.</h1>
             <a href="registre.php"><button>Tornar</button></a>
         </main>
     <?php }else {

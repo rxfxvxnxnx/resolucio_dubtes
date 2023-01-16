@@ -14,7 +14,7 @@ if (empty($_SESSION["usuario"])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Editar Solució</title>
 
-    <link rel="shortcut icon" href="img/icon.png" type="image/x-icon">
+    <link rel="shortcut icon" href="../../img/icon.png" type="image/x-icon">
     <link rel="stylesheet" href="../../css/pico.min.css">
     <link rel="stylesheet" href="../../css/style.css">
 </head>

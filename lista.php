@@ -18,7 +18,7 @@ if (empty($_SESSION["usuario"])) {
     <link rel="stylesheet" href="css/pico.min.css">
     <link rel="stylesheet" href="css/style.css">
 </head>
-<body class="container"></body>                
+<body class="container">              
     <?php
         $con = mysqli_connect("localhost","rduart","u8EnMnxo#","rduart") or exit(mysqli_connect_error());
         $sql = "SELECT * FROM consultes WHERE acabada='0'";
@@ -27,12 +27,26 @@ if (empty($_SESSION["usuario"])) {
     <header>
         <nav>
             <ul>
-                <li><strong class="title"><?php echo $_SESSION["usuario"] ?>.</strong></li>
+                <li><a class="secondary pointer" onclick="mostrar()"><img src="img/menu_icon.png" alt="" width="30px"></a></li>
             </ul>
             <ul>
-                <li class="pointer"><a data-target="modal-example" href="php/logout.php"><img src="img/login_icon.png" alt="" width="30px"></a></li>
+                <li><strong class="title"><?php echo $_SESSION["usuario"] ?>.</strong></li>
+            </ul>      
+            <details role="list"><summary><img class="profile" src="./img/user_img/default.png"></summary>
+            <ul>
+                <li><a href="./pages/perfil/perfil_edit.php">Editar perfil</a></li>
+                <li><a href="./php/logout.php">Logout</a></li>
             </ul>
+            </details>
         </nav>
+        <aside id="menu">
+            <nav class="menu_desple">
+                <li><h4><a href="#2" onclick="guardar()">Llista</a></h4></li>
+                <li><h4><a href="#3" onclick="guardar()">Exercicis</a></h4></li>
+                <li><h4><a href="#4" onclick="guardar()">Solucions</a></h4></li>
+                </ul>
+            </nav>
+        </aside>
     </header>
     <main>      
         <article>
@@ -148,6 +162,6 @@ if (empty($_SESSION["usuario"])) {
             <a href="#"><img src="img/arrow-up_icon-rev.png" class="flecha"></a>
         </div>
     </footer>
-<script src="js/modal.js"></script>
+<script src="js/script.js"></script>
 </body>
 </html>

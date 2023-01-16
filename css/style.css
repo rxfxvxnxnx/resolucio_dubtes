@@ -46,6 +46,13 @@ aside {
     margin: auto;
 }
 
+.busqueda {
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    margin: 0 !important;
+}
+
 #menu {
     display: none;
 }
@@ -69,4 +76,40 @@ aside {
 
 #footer .logo {
     width: 80px;
+}
+
+.profile{
+    width: 40px;
+    height: 40px;
+}
+/* Inicio Icono perfil */
+.details[role=list] summary::after, li[role=list]>a::after{
+    display: block;
+    width: 1rem;
+    height: 45px;
+    -webkit-margin-start: 0.5rem;
+    margin-inline-start: 0.5rem;
+    float: right;
+    transform: rotate(0);
+    background-position: right center;
+    background-size: 1rem auto;
+    background-repeat: no-repeat;
+    content: "";
+}
+
+details[role=list] summary:not([role]) {
+    height: calc(1rem * var(--line-height) + var(--form-element-spacing-vertical) * 2 + var(--border-width) * 2);
+    padding: var(--form-element-spacing-vertical) var(--form-element-spacing-horizontal);
+    /* border: var(--border-width) solid var(--form-element-border-color); */
+    border-radius: var(--border-radius);
+    background-color: var(--form-element-background-color);
+    color: var(--form-element-placeholder-color);
+    line-height: inherit;
+    border: none !important;
+    cursor: pointer;
+    transition: none !important;
+}
+
+details[role=list] summary::after, li[role=list]>a::after{
+    height: 40px;
 }
