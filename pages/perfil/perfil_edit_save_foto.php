@@ -42,6 +42,6 @@ mysqli_close($con);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
-<body onload=window.location="perfil_edit.php">
+<body onload=window.location="perfil_edit.php";
 </body>
 </html>
