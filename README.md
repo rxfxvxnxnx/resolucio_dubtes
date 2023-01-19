@@ -9,5 +9,4 @@
 --> Usuarios_Edit
       
       -Canviar Informacion Perfil 
-      
-      ~~Canviar Contraseña~~
+      	
