@@ -10,4 +10,4 @@
       
       -Canviar Informacion Perfil 
       
-      ~~-Canviar Contraseña~~
+      ~~Canviar Contraseña~~
