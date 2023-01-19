@@ -8,5 +8,5 @@
     
 --> Usuarios_Edit
       
-      -Canviar Informacion Perfil 
+      -Cambiar Informacion Perfil 
       	
