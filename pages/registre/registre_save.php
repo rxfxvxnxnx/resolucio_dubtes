@@ -21,7 +21,6 @@
     $user = $_REQUEST["user"];
     $user_C = false;
     $pass = md5($_REQUEST["pass"]);
-    
     $sql = "SELECT * FROM usuarios";
     $usuarios = mysqli_query($con,$sql) or exit(mysqli_error($con));
 
@@ -44,7 +43,7 @@
             <a href="registre.php"><button>Tornar</button></a>
         </main>
     <?php }else {
-    $sql = "INSERT INTO usuarios VALUES (null,'".$nom."','".$cognom."','".$email."','".$user."','".$pass."', 2)";
+    $sql = "INSERT INTO usuarios VALUES (null,'".$nom."','".$cognom."','".$email."','".$rutaCorrecta."','".$user."','".$pass."', 2)";
     $result = mysqli_query($con,$sql) or exit(mysqli_error($con));
     ?>
     <main class="container">       

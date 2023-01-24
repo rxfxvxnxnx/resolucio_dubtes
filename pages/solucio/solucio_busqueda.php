@@ -64,8 +64,9 @@ if (empty($_SESSION["usuario"]) || $_SESSION["permis"] == 2) {
 
     <main>
         <?php 
+            $busqueda = $_POST["search"];
 
-            $sql = "SELECT * FROM consultes WHERE acabada = '1'";
+            $sql = "SELECT * FROM consultes WHERE acabada = '1' AND (comentari LIKE '%$busqueda%' OR resposta LIKE '%$busqueda%')";
             $respuestas = mysqli_query($con,$sql) or exit(mysqli_error($con));
 
             while ($respuesta = mysqli_fetch_array($respuestas)) { ?>
@@ -121,7 +122,6 @@ if (empty($_SESSION["usuario"]) || $_SESSION["permis"] == 2) {
                                     echo $respuesta["resposta"];
                                     ?>
                                     </p>
-
                                 </div>
                             </blockquote>
                         </div>

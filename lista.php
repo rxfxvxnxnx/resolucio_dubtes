@@ -65,7 +65,7 @@ if (empty($_SESSION["usuario"])) {
             <h1>Formulari.</h1>
             <form action="pages/consultes/consultes_save.php" method="POST">
 
-                    <label for="exercici">Exercici:>
+                    <label for="exercici">Exercici:
                         <select name="exercici" id="exercici">
                             <?php 
                                 $sql = "SELECT * FROM exercicis";

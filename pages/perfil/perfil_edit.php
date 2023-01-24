@@ -49,6 +49,7 @@ if (empty($_SESSION["usuario"])) {
                         $link = "../../pages/admin/admin.php";
                     }
                     ?>
+                    <li><a href="../../pages/solucio/solucio.php">Solucions Busqueda</a></li>
                     <li><a href="<?php echo $link ?>">Resolucio Dubtes</a></li>
                     <li><a href="../../php/logout.php">Logout</a></li>
                 </ul>

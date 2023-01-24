@@ -48,6 +48,7 @@ if (empty($_SESSION["usuario"]) || $_SESSION["permis"] == 2) {
             <details role="list" dir="rtl">
             <summary><img class="profile" src="../../img/user_img/<?php echo $foto_perfil ?>"></summary>
             <ul>
+                <li><a href="../../pages/solucio/solucio.php">Solucions Busqueda</a></li>
                 <li><a href="../../pages/perfil/perfil_edit.php">Editar perfil</a></li>
                 <li><a href="../../php/logout.php">Logout</a></li>
             </ul>
@@ -222,6 +223,12 @@ if (empty($_SESSION["usuario"]) || $_SESSION["permis"] == 2) {
         $sql = "SELECT * FROM moduls WHERE profesor = ".$usuario["id_usuario"];
         $moduls = mysqli_query($con,$sql) or exit(mysqli_error($con));
         while($modul = mysqli_fetch_array($moduls)){
+        
+        $sql = "SELECT * FROM exercicis WHERE modul_FK = ".$modul["id_modul"];
+        $exercicis_buit = mysqli_query($con,$sql) or exit(mysqli_error($con));
+        $exercici_buit = mysqli_fetch_array($exercicis_buit)
+
+        if (empty($exercici_buit)) {
         ?>        
         <article id="3">        
             <div style="display: flex; justify-content: space-between;">
@@ -264,7 +271,8 @@ if (empty($_SESSION["usuario"]) || $_SESSION["permis"] == 2) {
                     </table>
                 </figure>
             </article>
-        <?php } ?>
+        <?php } 
+        } ?>
 
         <?php
         $sql="SELECT * FROM consultes WHERE NOT resposta = ''";
