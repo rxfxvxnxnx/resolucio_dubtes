@@ -34,9 +34,6 @@ if (empty($_SESSION["usuario"]) || $_SESSION["permis"] == 2) {
     <header>
         <nav>
             <ul>
-                <li><a class="secondary pointer" onclick="mostrar()"><img src="../../img/menu_icon.png" alt="" width="30px"></a></li>
-            </ul>
-            <ul>
                 <li>
                     <form action="solucio_busqueda.php" method="POST"  class="busqueda">
                         <input type="search" id="search" name="search" placeholder="Problemas, Solucions...">
@@ -52,14 +49,6 @@ if (empty($_SESSION["usuario"]) || $_SESSION["permis"] == 2) {
                 </ul>
             </details>
         </nav>
-        <aside id="menu">
-            <nav class="menu_desple">
-                <li><h4><a href="#2" onclick="guardar()">Llista</a></h4></li>
-                <li><h4><a href="#3" onclick="guardar()">Exercicis</a></h4></li>
-                <li><h4><a href="#4" onclick="guardar()">Solucions</a></h4></li>
-                </ul>
-            </nav>
-        </aside>
     </header>
 
     <main>

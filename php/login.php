@@ -33,7 +33,7 @@
             $permis = $user["permis"];
             
             $usuario = $_POST["user"];
-            $palabra_secreta = md5($_POST["pass"]);
+            $palabra_secreta = md5($_POST["password"]);
             
             if ($usuario == $usuario_correcto && $palabra_secreta == $palabra_secreta_correcta  && $permis == 1) {
                 session_start();

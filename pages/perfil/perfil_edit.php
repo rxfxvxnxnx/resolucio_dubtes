@@ -49,7 +49,6 @@ if (empty($_SESSION["usuario"])) {
                         $link = "../../pages/admin/admin.php";
                     }
                     ?>
-                    <li><a href="../../pages/solucio/solucio.php">Solucions Busqueda</a></li>
                     <li><a href="<?php echo $link ?>">Resolucio Dubtes</a></li>
                     <li><a href="../../php/logout.php">Logout</a></li>
                 </ul>
@@ -81,11 +80,26 @@ if (empty($_SESSION["usuario"])) {
         <article id="2">
             <h1>Canviar Informacio.</h1>
 
+            <form action="perfil_edit_informacion.php" method="POST">
+                <label for="nom">Nom:
+                    <input name="nom" type="text" placeholder="Nom:" value="<?php echo $usuario_foto["nom"]?>"required>
+                </label>
+
+                <label for="cognom">Cognom:
+                    <input name="cognom" type="text" placeholder="Cognom:" value="<?php echo $usuario_foto["cognom"]?>"required>
+                </label>
+                
+                <label for="usuari">Usuari:
+                    <input name="usuario" type="text"  placeholder="Usuari:" value="<?php echo $usuario_foto["usuario"]?>"required>
+                </label>
+
+                <button type="submit">Enviar</button>
+            </form>
         </article>
         <article id="3">
             <h1>Canviar Contraseña.</h1>
 
-            <form action="editar_perfil_save.php" method="POST">
+            <form action="editar_perfil_save_password.php" method="POST">
                 <label for="contrasenya">Contrasenya Actual:
                     <input name="contraseña" type="text" placeholder="Contrasenya actual" required>
                 </label>

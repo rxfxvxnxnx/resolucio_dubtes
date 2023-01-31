@@ -38,34 +38,24 @@ if (empty($_SESSION["usuario"])) {
     <header>
         <nav>
             <ul>
-                <li><a class="secondary pointer" onclick="mostrar()"><img src="img/menu_icon.png" alt="" width="30px"></a></li>
-            </ul>
-            <ul>
                 <li><strong class="title"><?php echo $_SESSION["usuario"] ?>.</strong></li>
             </ul>
             <details role="list" dir="rtl">
                 <summary><img class="profile" src="./img/user_img/<?php echo $foto_perfil ?>"></summary>
                 <ul>
+                    <li><a href="../../pages/solucio/solucio.php">Busqueda Solucions</a></li>
                     <li><a href="./pages/perfil/perfil_edit.php">Editar perfil</a></li>
                     <li><a href="./php/logout.php">Logout</a></li>
                 </ul>
             </details>
         </nav>
-        <aside id="menu">
-            <nav class="menu_desple">
-                <li><h4><a href="#2" onclick="guardar()">Llista</a></h4></li>
-                <li><h4><a href="#3" onclick="guardar()">Exercicis</a></h4></li>
-                <li><h4><a href="#4" onclick="guardar()">Solucions</a></h4></li>
-                </ul>
-            </nav>
-        </aside>
     </header>
     <main>      
         <article>
             <h1>Formulari.</h1>
             <form action="pages/consultes/consultes_save.php" method="POST">
 
-                    <label for="exercici">Exercici:
+                    <label for="exercici">Exercici:>
                         <select name="exercici" id="exercici">
                             <?php 
                                 $sql = "SELECT * FROM exercicis";

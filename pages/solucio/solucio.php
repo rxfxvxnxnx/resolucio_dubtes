@@ -32,101 +32,33 @@ if (empty($_SESSION["usuario"]) || $_SESSION["permis"] == 2) {
         }
     ?>
     <header>
-        <nav>
-            <ul>
-                <li><a class="secondary pointer" onclick="mostrar()"><img src="../../img/menu_icon.png" alt="" width="30px"></a></li>
-            </ul>
+        <nav>  
             <ul>
                 <li>
-                    <form action="solucio_busqueda.php" method="POST"  class="busqueda">
-                        <input type="search" id="search" name="search" placeholder="Problemas, Solucions...">
+                    <form action="solucio.php" method="POST"  class="busqueda">
+                        <input type="search" id="search" name="search" placeholder="Buscador">
                     </form>
                 </li>
             </ul>
             <details role="list" dir="rtl">
                 <summary><img class="profile" src="../../img/user_img/<?php echo $foto_perfil ?>"></summary>
                 <ul>
-                    <li><a href="../../pages/admin/admin.php">Resolucio Dubtes</a></li>
                     <li><a href="../../pages/perfil/perfil_edit.php">Editar perfil</a></li>
                     <li><a href="../../php/logout.php">Logout</a></li>
                 </ul>
             </details>
         </nav>
-        <aside id="menu">
-            <nav class="menu_desple">
-                <li><h4><a href="#2" onclick="guardar()">Llista</a></h4></li>
-                <li><h4><a href="#3" onclick="guardar()">Exercicis</a></h4></li>
-                <li><h4><a href="#4" onclick="guardar()">Solucions</a></h4></li>
-                </ul>
-            </nav>
-        </aside>
     </header>
 
     <main>
-        <?php 
-
+        <?php if($_POST["search"]=="") {
             $sql = "SELECT * FROM consultes WHERE acabada = '1'";
             $respuestas = mysqli_query($con,$sql) or exit(mysqli_error($con));
 
             while ($respuesta = mysqli_fetch_array($respuestas)) { ?>
-                    <article id="card">
-                        <div class="card">
-                            <h1 class="text_center">
-                                <?php
-                                $sql = "SELECT * FROM usuarios WHERE id_usuario =".$respuesta["usuario_consulta_FK"];
-                                $usuaris_so = mysqli_query($con,$sql) or exit(mysqli_error($con));
-                                $usuari_so = mysqli_fetch_array($usuaris_so);
-                                echo $usuari_so["nom"]." ".$usuari_so["cognom"];
-                                ?>
-                            </h1>
-                            <div class="linea"></div>
-                            <div>
-                                <?php
-                                $sql = "SELECT * FROM exercicis WHERE id_exercici =".$respuesta["exercici_FK"];
-                                $exercicis = mysqli_query($con,$sql) or exit(mysqli_error($con));
-                                $exercici = mysqli_fetch_array($exercicis);
-                                
-                                $sql = "SELECT * FROM moduls WHERE id_modul = ".$exercici["modul_FK"];
-                                $moduls_ex = mysqli_query($con,$sql) or exit(mysqli_error($con));
-                                $modul_ex = mysqli_fetch_array($moduls_ex);
-                                ?>
-                                <h3 class="text_center">
-                                <?php
-                                echo $modul_ex["modul"]." ".$modul_ex["uf"];
-                                ?>
-                                </h3>
-                            </div>
-                            <div>
-                                <h3 class="text_center">
-                                <?php 
-                                echo $exercici["exercici"];
-                                ?>
-                                </h3>
-                            </div>
-                            <div class="linea"></div>
-                            <blockquote>
-                                <div>
-                                    <h3>Problema:</h3>
-                                    <p>
-                                    <?php
-                                    echo $respuesta["comentari"];
-                                    ?>
-                                    </p>
 
-                                </div>
-                                <div>
-                                    <h3>Solucio:</h3>
-                                    <p>
-                                    <?php
-                                    echo $respuesta["resposta"];
-                                    ?>
-                                    </p>
-
-                                </div>
-                            </blockquote>
-                        </div>
-                    </article>
-            <?php } ?>
+            <?php }
+        } ?>
     </main>
     
 

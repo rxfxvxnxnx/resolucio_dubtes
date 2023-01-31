@@ -6,6 +6,10 @@ if (empty($_SESSION["usuario"]) || $_SESSION["permis"] == 2) {
 }
 ?>
 
+<?php
+$id_modul = $_REQUEST["id_modul_crear"];
+?>
+
 <!DOCTYPE html>
 <html lang="en" data-theme="dark">
 <head>
@@ -21,7 +25,7 @@ if (empty($_SESSION["usuario"]) || $_SESSION["permis"] == 2) {
 <body class="container">             
         <article>
             <h1>Afegir nou exercici.</h1>
-            <form action="exercicis_create_save.php" method="POST">
+            <form action="exercicis_create_save.php?id_modul=<?php echo $id_modul ?>" method="POST">
             <label for="nou_exercici">Nom Exercici:</label>
                 <input name="nou_exercici" id="nou_exercici" type="text">
                 <input type="submit" value="Enviar" role="button" class="boto">

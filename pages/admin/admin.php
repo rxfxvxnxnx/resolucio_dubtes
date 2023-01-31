@@ -40,28 +40,17 @@ if (empty($_SESSION["usuario"]) || $_SESSION["permis"] == 2) {
     <header>
         <nav>
             <ul>
-                <li><a class="secondary pointer" onclick="mostrar()"><img src="../../img/menu_icon.png" alt="" width="30px"></a></li>
-            </ul>
-            <ul>
                 <li><strong class="title"><?php echo $_SESSION["usuario"] ?>.</strong></li>
             </ul>      
             <details role="list" dir="rtl">
             <summary><img class="profile" src="../../img/user_img/<?php echo $foto_perfil ?>"></summary>
             <ul>
-                <li><a href="../../pages/solucio/solucio.php">Solucions Busqueda</a></li>
+                <li><a href="../../pages/solucio/solucio.php">Busqueda Solucions</a></li>
                 <li><a href="../../pages/perfil/perfil_edit.php">Editar perfil</a></li>
                 <li><a href="../../php/logout.php">Logout</a></li>
             </ul>
             </details>
         </nav>
-        <aside id="menu">
-            <nav class="menu_desple">
-                <li><h4><a href="#2" onclick="guardar()">Llista</a></h4></li>
-                <li><h4><a href="#3" onclick="guardar()">Exercicis</a></h4></li>
-                <li><h4><a href="#4" onclick="guardar()">Solucions</a></h4></li>
-                </ul>
-            </nav>
-        </aside>
     </header>
 
     <main>
@@ -223,18 +212,25 @@ if (empty($_SESSION["usuario"]) || $_SESSION["permis"] == 2) {
         $sql = "SELECT * FROM moduls WHERE profesor = ".$usuario["id_usuario"];
         $moduls = mysqli_query($con,$sql) or exit(mysqli_error($con));
         while($modul = mysqli_fetch_array($moduls)){
+<<<<<<< HEAD
         
         $sql = "SELECT * FROM exercicis WHERE modul_FK = ".$modul["id_modul"];
         $exercicis_buit = mysqli_query($con,$sql) or exit(mysqli_error($con));
-        $exercici_buit = mysqli_fetch_array($exercicis_buit)
-
-        if (empty($exercici_buit)) {
+        $exercici_buit = mysqli_fetch_array($exercicis_buit);
+=======
+>>>>>>> 7bb90361cdf57051878d9a3de2d7139ba8f5633b
         ?>        
         <article id="3">        
             <div style="display: flex; justify-content: space-between;">
-                    <h1><?php echo $modul["modul"] ?>.</h1>
+                    <h1><?php echo $modul["modul"] ?>. <?php echo $modul["uf"] ?></h1>
+                    <?php
+                    $sql = "SELECT * FROM moduls WHERE modul = '".$modul["modul"]."' AND uf = '".$modul["uf"]."'";
+                    $moduls_crear = mysqli_query($con,$sql) or exit(mysqli_error($con));
+                    $modul_crear = mysqli_fetch_array($moduls_crear);
+
+                    ?>
                     <!-- Icono Crear nuevo ejercicio -->
-                    <a href="../exercicis/exercicis_create.php"><img src="../../img/plus_icon.png" width="37px"></a>
+                    <a href="../exercicis/exercicis_create.php?id_modul_crear=<?php echo $modul_crear["id_modul"] ?>"><img src="../../img/plus_icon.png" width="37px"></a>
             </div>
             <figure>
                 <?php 
@@ -245,11 +241,9 @@ if (empty($_SESSION["usuario"]) || $_SESSION["permis"] == 2) {
                 $sql = "SELECT * FROM exercicis WHERE modul_FK = ".$modul["id_modul"]." ORDER BY exercici ASC";
                 $exercicis = mysqli_query($con,$sql) or exit(mysqli_error($con));
                 ?>
+                <?php if (!empty($exercici_buit)) { ?>
                 <table role="grid">
                         <thead>
-                            <tr>
-                                <th colspan=2><h3><?php echo $modul["uf"] ?></h3></th>
-                            </tr>
                             <tr>
                                 <th>Exercici</th>
                                 <th>Opcions</th>
@@ -269,10 +263,10 @@ if (empty($_SESSION["usuario"]) || $_SESSION["permis"] == 2) {
                             <?php } ?>
                         </tbody>
                     </table>
+                <?php } ?>
                 </figure>
             </article>
-        <?php } 
-        } ?>
+        <?php } ?>
 
         <?php
         $sql="SELECT * FROM consultes WHERE NOT resposta = ''";
