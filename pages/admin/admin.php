@@ -215,9 +215,7 @@ if (empty($_SESSION["usuario"]) || $_SESSION["permis"] == 2) {
         
         $sql = "SELECT * FROM exercicis WHERE modul_FK = ".$modul["id_modul"];
         $exercicis_buit = mysqli_query($con,$sql) or exit(mysqli_error($con));
-        $exercici_buit = mysqli_fetch_array($exercicis_buit)
-
-        if (empty($exercici_buit)) {
+        $exercici_buit = mysqli_fetch_array($exercicis_buit);
         ?>        
         <article id="3">        
             <div style="display: flex; justify-content: space-between;">
