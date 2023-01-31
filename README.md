@@ -2,9 +2,6 @@
 
 -Por Hacer
 
---> Registro
-       
-      -Hacer que se puedan poner imagenes de perfil
-      -Ocultar / Mostrar Contraseña
-
+--> Enviar preguntas
+       Se tiene que poder escoger que profe es, que modulo y la uf 
       	
