@@ -131,3 +131,16 @@ nav details {
 #footer .logo {
     width: 80px;
 }
+
+/* .fa-eye:before {
+    content: "\f06e";
+    font-weight: 900;
+    position: fixed;
+    float: left;
+    justify-content: center;
+    display: flex;
+    margin-top: -85px;
+    margin-right: 0;
+    margin-left: 375px;
+    cursor: pointer;
+} */

@@ -17,3 +17,20 @@ function guardar() {
     document.getElementById("menu").style.display = "none";
     mostra = false;
 }
+
+
+// function ojo(){
+//   var contraseña,check;
+
+//   contraseña=document.getElementById("contraseña");
+//   check=document.getElementById("ver");
+
+//   if(contraseña.type === "password") // Si el input esta como password 
+//   {
+//       contraseña.type = "text";
+//   }
+//   else // Si no está como password
+//   {
+//       contraseña.type = "password";
+//   }
+// }
