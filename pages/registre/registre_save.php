@@ -44,7 +44,7 @@
             <a href="registre.php"><button>Tornar</button></a>
         </main>
     <?php }else {
-    $sql = "INSERT INTO usuarios VALUES (null,'".$nom."','".$cognom."','".$email."','".$user."','".$pass."', 2)";
+    $sql = "INSERT INTO usuarios VALUES (null,'".$nom."','".$cognom."','".$email."',null,'".$user."','".$pass."', 2)";
     $result = mysqli_query($con,$sql) or exit(mysqli_error($con));
     ?>
     <main class="container">       

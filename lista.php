@@ -43,7 +43,7 @@ if (empty($_SESSION["usuario"])) {
             <details role="list" dir="rtl">
                 <summary><img class="profile" src="./img/user_img/<?php echo $foto_perfil ?>"></summary>
                 <ul>
-                    <li><a href="../../pages/solucio/solucio.php">Busqueda Solucions</a></li>
+                    <li><a href="pages/solucio/solucio.php">Busqueda Solucions</a></li>
                     <li><a href="./pages/perfil/perfil_edit.php">Editar perfil</a></li>
                     <li><a href="./php/logout.php">Logout</a></li>
                 </ul>
@@ -80,81 +80,6 @@ if (empty($_SESSION["usuario"])) {
                 <input type="submit" value="Enviar" role="button" class="boto">
             </form>
         </article>
-
-        <?php
-        $sql="SELECT * FROM consultes WHERE NOT resposta = ''";
-        $buidas = mysqli_query($con,$sql) or exit(mysqli_error($con));
-        $buida = mysqli_fetch_array($buidas);
-        if (empty($buida["id_consulta"])){
-        }else {
-        ?>
-        <article>
-            <figure>
-                <h1>Solucions.</h1>
-                <?php 
-                $sql="SELECT * FROM consultes WHERE NOT resposta = ''";
-                $consultes_so = mysqli_query($con,$sql) or exit(mysqli_error($con)); 
-                while($consulte_so = mysqli_fetch_array($consultes_so)) { ?>
-                    <article id="card">
-                        <div class="card">
-                        <h1 class="text_center">
-                                <?php
-                                $sql = "SELECT * FROM usuarios WHERE id_usuario =".$consulte_so["usuario_consulta_FK"];
-                                $usuaris_so = mysqli_query($con,$sql) or exit(mysqli_error($con));
-                                $usuari_so = mysqli_fetch_array($usuaris_so);
-                                echo $usuari_so["nom"]." ".$usuari_so["cognom"];
-                                ?>
-                            </h1>
-                            <div>
-                                <?php
-                                $sql = "SELECT * FROM exercicis WHERE id_exercici =".$consulte_so["exercici_FK"];
-                                $exercicis = mysqli_query($con,$sql) or exit(mysqli_error($con));
-                                $exercici = mysqli_fetch_array($exercicis);
-                                
-                                $sql = "SELECT * FROM moduls WHERE id_modul = ".$exercici["modul_FK"];
-                                $moduls_ex = mysqli_query($con,$sql) or exit(mysqli_error($con));
-                                $modul_ex = mysqli_fetch_array($moduls_ex);
-                                ?>
-                                <h5 class="text_center">
-                                <?php
-                                echo $modul_ex["modul"]." ".$modul_ex["uf"];
-                                ?>
-                                </h5>
-                            </div>
-                            <div>
-                                <h5 class="text_center">
-                                <?php 
-                                echo $exercici["exercici"];
-                                ?>
-                                </h5>
-                            </div>
-                            <div class="linea"></div>
-                            <div>
-                                <h3>Problema:</h3>
-                                <p>
-                                <?php
-                                echo $consulte_so["comentari"];
-                                ?>
-                                </p>
-
-                            </div>
-                            <div>
-                                <h3>Solucio:</h3>
-                                <p>
-                                <?php
-                                echo $consulte_so["resposta"];
-                                ?>
-                                </p>
-
-                            </div>
-                            <div class="linea"></div>
-                            <p class="text_center"><?php echo $consulte_so["date"] ?></p>
-                        </div>
-                    </article>
-                <?php } ?>
-            </figure>
-        </article>
-        <?php } ?>
     </main>
 
     <footer id="footer">

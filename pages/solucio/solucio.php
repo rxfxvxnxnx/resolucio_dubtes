@@ -1,6 +1,6 @@
 <?php
 session_start();
-if (empty($_SESSION["usuario"]) || $_SESSION["permis"] == 2) {
+if (empty($_SESSION["usuario"])) {
     header("Location: ../../index.php");
     exit();
 }
@@ -43,7 +43,14 @@ if (empty($_SESSION["usuario"]) || $_SESSION["permis"] == 2) {
             <details role="list" dir="rtl">
                 <summary><img class="profile" src="../../img/user_img/<?php echo $foto_perfil ?>"></summary>
                 <ul>
-                    <li><a href="../../pages/admin/admin.php">Resolucio Dubtes</a></li>
+                    <?php
+                    if($_SESSION["permis"] == 2){
+                        $pagina = "../../lista.php";
+                    }else if($_SESSION["permis"] == 1){
+                        $pagina = "../../pages/admin/admin.php";
+                    }
+                    ?>
+                    <li><a href="<?php echo $pagina ?>">Resolucio Dubtes</a></li>
                     <li><a href="../../pages/perfil/perfil_edit.php">Editar perfil</a></li>
                     <li><a href="../../php/logout.php">Logout</a></li>
                 </ul>

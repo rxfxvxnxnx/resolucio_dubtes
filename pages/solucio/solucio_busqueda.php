@@ -1,6 +1,6 @@
 <?php
 session_start();
-if (empty($_SESSION["usuario"]) || $_SESSION["permis"] == 2) {
+if (empty($_SESSION["usuario"])) {
     header("Location: ../../index.php");
     exit();
 }

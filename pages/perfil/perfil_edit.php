@@ -34,9 +34,6 @@ if (empty($_SESSION["usuario"])) {
     <header>
         <nav>
             <ul>
-                <li><a class="secondary pointer" onclick="mostrar()"><img src="../../img/menu_icon.png" alt="" width="30px"></a></li>
-            </ul>
-            <ul>
                 <li><strong class="title"><?php echo $_SESSION["usuario"] ?>.</strong></li>
             </ul>      
             <details role="list" dir="rtl">
@@ -54,14 +51,6 @@ if (empty($_SESSION["usuario"])) {
                 </ul>
             </details>
         </nav>
-        <aside id="menu">
-            <nav class="menu_desple">
-                <li><h4><a href="#1" onclick="guardar()">Canviar Foto</a></h4></li>
-                <li><h4><a href="#2" onclick="guardar()">Canviar Informacio</a></h4></li>
-                <li><h4><a href="#3" onclick="guardar()">Canviar Contraseña</a></h4></li>
-                </ul>
-            </nav>
-        </aside>
     </header>
     <main>
         <article id="1">
