@@ -212,13 +212,12 @@ if (empty($_SESSION["usuario"]) || $_SESSION["permis"] == 2) {
         $sql = "SELECT * FROM moduls WHERE profesor = ".$usuario["id_usuario"];
         $moduls = mysqli_query($con,$sql) or exit(mysqli_error($con));
         while($modul = mysqli_fetch_array($moduls)){
-<<<<<<< HEAD
         
         $sql = "SELECT * FROM exercicis WHERE modul_FK = ".$modul["id_modul"];
         $exercicis_buit = mysqli_query($con,$sql) or exit(mysqli_error($con));
-        $exercici_buit = mysqli_fetch_array($exercicis_buit);
-=======
->>>>>>> 7bb90361cdf57051878d9a3de2d7139ba8f5633b
+        $exercici_buit = mysqli_fetch_array($exercicis_buit)
+
+        if (empty($exercici_buit)) {
         ?>        
         <article id="3">        
             <div style="display: flex; justify-content: space-between;">
