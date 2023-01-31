@@ -1,3 +1,11 @@
+<?php
+session_start();
+if (empty($_SESSION["usuario"])) {
+    header("Location: index.php");
+    exit();
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en" data-theme="dark">
 <head>
@@ -14,11 +22,22 @@
 <?php
     $con = mysqli_connect("localhost","rduart","u8EnMnxo#","rduart") or exit(mysqli_connect_error());
 
+    $sql = "SELECT * FROM usuarios WHERE usuario = '".$_SESSION["usuario"]."'";
+    $usuarios = mysqli_query($con,$sql) or exit(mysqli_error($con));  
+    $usuario = mysqli_fetch_array($usuarios);
+
+    $sql = "SELECT * FROM exercicis WHERE exercici ='".$_REQUEST["browser"]."'";
+    $exercicis = mysqli_query($con,$sql) or exit(mysqli_error($con));  
+    $exercici = mysqli_fetch_array($exercicis);
+
+    $sql = "SELECT * FROM moduls WHERE id_modul =".$exercici["modul_FK"];
+    $moduls = mysqli_query($con,$sql) or exit(mysqli_error($con)); 
+    $modul = mysqli_fetch_array($moduls);
+
     date_default_timezone_set('Europe/Madrid');
-    
     $time = date("h:i:s a");
 
-    $sql = "INSERT INTO consultes VALUES (null, ".$_REQUEST["alumne"].", ".$_REQUEST["exercici"].", '".$_REQUEST["comentari"]."', '".$time."', CURDATE(), null, 0);";
+    $sql = "INSERT INTO consultes VALUES (null, ".$usuario["id_usuario"].", ".$exercici["id_exercici"].", ".$modul["profesor"].", '".$_REQUEST["comentari"]."', '".$time."', CURDATE(), null, 0);";
 
     $result = mysqli_query($con,$sql) or exit(mysqli_error($con));  
 

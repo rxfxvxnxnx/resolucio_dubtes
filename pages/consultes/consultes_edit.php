@@ -33,54 +33,49 @@ if (empty($_SESSION["usuario"])) {
         </nav>
         <main>
         <form action="consultes_edit_save.php" method="POST">
-        <div class="grid">
-            <article>
-                <h1>Solució.</h1>
-                    <div class="grid">
-                        <label for="alumne">Alumne:
-                            <select name="alumne" id="alumne" disabled>
-                            <?php 
-                            $sql="SELECT * FROM alumnes WHERE id_alumne =".$consulta["alumne_FK"];
-                            $alumnes = mysqli_query($con,$sql) or exit(mysqli_error($con));
-                            while($alumne=mysqli_fetch_array($alumnes)) { ?>
-                                <option value="<?php echo $alumne["id_alumne"] ?>" <?php echo ($consulta["alumne_FK"]==$alumne["id_alumne"] ? "selected":"") ?>>
-                                    <?php                         
-                                        echo $alumne["nom"];
-                                        echo "\n";
-                                        echo $alumne["cognom"];
-                                    ?>
-                                </option>
-                            <?php
-                            }
-                            ?>
-                            </select>
-                        </label>
 
-                        <label for="exercici">Exercici:
-                            <select name="exercici" id="exercici" disabled>
-                                <?php 
-                                    $sql = "SELECT * FROM exercicis";
-                                    $exercicis_select = mysqli_query($con,$sql) or exit(mysqli_error($con));
-                                ?>
-                                <?php while($exercici_select = mysqli_fetch_array($exercicis_select)){ ?>
-                                    <option value="<?php echo $exercici_select["id_exercici"] ?>"<?php echo ($consulta["exercici_FK"]==$exercici_select["id_exercici"] ? "selected":"") ?>>
-                                    <?php echo $exercici_select["exercici"]; ?>                                    
-                                </option>
-                                <?php } ?>
-                            </select>
-                        </label>
-                    </div>
-
-                    <label for="resposta">Resposta:</label>
+        <article>
+            <h1>Solució.</h1>
+            <div class="grid">
+                <label for="alumne">Alumne:
                     <?php 
-                    $sql = "SELECT * FROM consultes WHERE id_consulta =".$consulta["id_consulta"];
-                    $consultes = mysqli_query($con,$sql) or exit(mysqli_error($con));
-                    $consulta = mysqli_fetch_array($consultes);
+                    $sql="SELECT * FROM usuarios WHERE id_usuario =".$consulta["usuario_consulta_FK"];
+                    $alumnes = mysqli_query($con,$sql) or exit(mysqli_error($con));
+                    $alumne=mysqli_fetch_array($alumnes);
                     ?>
-                    <textarea name="resposta" id="resposta" type="text"><?php echo $consulta["resposta"]?></textarea>
-                    <input type="hidden" name=id_consulta value="<?php echo $consulta ["id_consulta"]?>"> 
-                    <input type="submit" value="Enviar" role="button" class="boto">
-                </form>
+                    <input type="text" value="<?php echo $alumne["nom"] ?> <?php echo $alumne["cognom"] ?>" disabled>
+                </label>
+
+                <label for="modul">Modul:
+                    <?php
+                    $sql = "SELECT * FROM exercicis WHERE id_exercici =".$consulta["exercici_FK"];
+                    $exercicis_select = mysqli_query($con,$sql) or exit(mysqli_error($con));
+                    $exercici_select = mysqli_fetch_array($exercicis_select);
+
+                    $sql = "SELECT * FROM moduls WHERE id_modul = ".$exercici_select["modul_FK"];
+                    $moduls = mysqli_query($con,$sql) or exit(mysqli_error($con));
+                    $modul = mysqli_fetch_array($moduls);
+                    ?>
+                    <input type="text" value="<?php echo $modul["modul"] ?> - <?php echo $modul["uf"] ?>" disabled>
+                </label>
+            </div>
+
+                <label for="exercici">Exercici:
+                        <?php 
+                        ?>
+                        <input type="text" value="<?php echo $exercici_select["exercici"] ?>" disabled>
+                </label>
+
+            <label for="resposta">Resposta:</label>
+            <?php 
+            $sql = "SELECT * FROM consultes WHERE id_consulta =".$consulta["id_consulta"];
+            $consultes = mysqli_query($con,$sql) or exit(mysqli_error($con));
+            $consulta = mysqli_fetch_array($consultes);
+            ?>
+            <textarea name="resposta" id="resposta" type="text"><?php echo $consulta["resposta"]?></textarea>
+            <input type="hidden" name=id_consulta value="<?php echo $consulta ["id_consulta"]?>"> 
+            <input type="submit" value="Edita" role="button" class="boto">
+        </article>
 <script src="../../js/modal.js"></script>
 </body>
 </html>

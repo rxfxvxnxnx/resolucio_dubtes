@@ -55,18 +55,24 @@ if (empty($_SESSION["usuario"])) {
             <h1>Formulari.</h1>
             <form action="pages/consultes/consultes_save.php" method="POST">
 
-                    <label for="exercici">Exercici:>
-                        <select name="exercici" id="exercici">
+                    <label for="exercici">Exercici:</label>
+                        <input type="search" list="browsers" name="browser" id="browser" placeholder="Busca el exercici...">
+                        <datalist id="browsers">
                             <?php 
                                 $sql = "SELECT * FROM exercicis";
                                 $exercicis_select = mysqli_query($con,$sql) or exit(mysqli_error($con));
                             ?>
-                            <?php while($exercici_select = mysqli_fetch_array($exercicis_select)){ ?>
-                                <option value="<?php echo $exercici_select["id_exercici"] ?>">
-                                    <?php echo $exercici_select["exercici"] ?>
-                                </option>
+                            <?php 
+                                while($exercici_select = mysqli_fetch_array($exercicis_select)){ 
+
+                                $sql = "SELECT * FROM moduls WHERE id_modul = ".$exercici_select["modul_FK"];
+                                $moduls_exercici = mysqli_query($con,$sql) or exit(mysqli_error($con));
+                                $modul_exercici = mysqli_fetch_array($moduls_exercici);
+
+                            ?>
+                                <option value="<?php echo $exercici_select["exercici"] ?>"><?php echo $modul_exercici["modul"] ?> - <?php echo $modul_exercici["uf"] ?></option>
                             <?php } ?>
-                        </select>
+                        </datalist>
 
                 <label for="comentari">Comentari:</label>
                 <textarea name="comentari" id="comentari" type="text" required></textarea>
