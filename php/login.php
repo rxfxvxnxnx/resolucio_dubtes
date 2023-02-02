@@ -15,7 +15,7 @@
 <body class="container">
     <h1 class="marginTop">
         <?php
-        $con = mysqli_connect("localhost","rduart","u8EnMnxo#","rduart") or exit(mysqli_connect_error());
+        require "../database.php";
 
         $sql = "SELECT * FROM usuarios WHERE usuario = '".$_POST["user"]."'";
         
@@ -46,6 +46,11 @@
                 $_SESSION["usuario"] = $usuario;
                 $_SESSION["permis"] = $permis;
                 header("Location: ../lista.php");
+            } else if ($usuario == $usuario_correcto && $palabra_secreta == $palabra_secreta_correcta  && $permis == 0) {
+                session_start();
+                $_SESSION["usuario"] = $usuario;
+                $_SESSION["permis"] = $permis;
+                header("Location: ../pages/super_admin/super_admin.php");
             } 
             else {
                 echo "El Usuario o la Contraseña son Incorrectos";

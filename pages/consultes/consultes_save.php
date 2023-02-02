@@ -20,7 +20,7 @@ if (empty($_SESSION["usuario"])) {
 </head>
 <body class="container-fluid">
 <?php
-    $con = mysqli_connect("localhost","rduart","u8EnMnxo#","rduart") or exit(mysqli_connect_error());
+    require "../../database.php";
 
     $sql = "SELECT * FROM usuarios WHERE usuario = '".$_SESSION["usuario"]."'";
     $usuarios = mysqli_query($con,$sql) or exit(mysqli_error($con));  

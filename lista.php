@@ -20,7 +20,7 @@ if (empty($_SESSION["usuario"])) {
 </head>
 <body class="container">              
     <?php
-        $con = mysqli_connect("localhost","rduart","u8EnMnxo#","rduart") or exit(mysqli_connect_error());
+    require "database.php";
 
         $sql = "SELECT * FROM usuarios WHERE usuario = '".$_SESSION["usuario"]."'";
         $usuarios_foto = mysqli_query($con,$sql) or exit(mysqli_error($con));
@@ -70,7 +70,7 @@ if (empty($_SESSION["usuario"])) {
                                 $modul_exercici = mysqli_fetch_array($moduls_exercici);
 
                             ?>
-                                <option value="<?php echo $exercici_select["exercici"] ?>"><?php echo $modul_exercici["modul"] ?> - <?php echo $modul_exercici["uf"] ?></option>
+                                <option value="<?php echo $exercici_select["exercici"] ?>"><?php echo $modul_exercici["modul"] ?> - <?php echo $modul_exercici["uf"] ?> - <?php echo $exercici_select["exercici"] ?></option>
                             <?php } ?>
                         </datalist>
 

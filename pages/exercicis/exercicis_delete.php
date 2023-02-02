@@ -18,7 +18,8 @@ if (empty($_SESSION["usuario"]) || $_SESSION["permis"] == 2) {
 </head>
 <body onload=window.location="../admin/admin.php">
     <?php
-        $con = mysqli_connect("localhost","rduart","u8EnMnxo#","rduart") or exit(mysqli_connect_error());
+        require "../../database.php";
+        
         $sql = "DELETE FROM exercicis WHERE id_exercici = ".$_REQUEST['id_exercici'];
         try {
             $result = mysqli_query($con,$sql) or exit(mysqli_error($con)); ?>

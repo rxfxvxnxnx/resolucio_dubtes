@@ -16,7 +16,7 @@ if (empty($_SESSION["usuario"]) || $_SESSION["permis"] == 2) {
 </head>
 <body onload=window.location="../admin/admin.php">
     <?php
-        $con = mysqli_connect("localhost","rduart","u8EnMnxo#","rduart") or exit(mysqli_connect_error());
+        require "../../database.php";
         $sql = "INSERT INTO exercicis VALUES (null,'".$_REQUEST["id_modul"]."','".$_REQUEST["nou_exercici"]."')";
         $result = mysqli_query($con,$sql) or exit(mysqli_error($con));
     ?>

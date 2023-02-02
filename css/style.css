@@ -107,6 +107,10 @@ nav details {
     margin-bottom: 100px;
 }
 
+.afegir_superadmin {
+text-align: center;
+}
+
 #menu {
     display: none;
 }

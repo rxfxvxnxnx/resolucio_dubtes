@@ -1,7 +1,7 @@
 <?php
 session_start();
-if (empty($_SESSION["usuario"])) {
-    header("Location: ../../lista.php");
+if (empty($_SESSION["usuario"]) || $_SESSION["permis"] == 2) {
+    header("Location: ../../index.php");
     exit();
 }
 ?>
@@ -17,7 +17,7 @@ if (empty($_SESSION["usuario"])) {
 </head>
 <body onload=window.location="admin.php">
     <?php
-        $con = mysqli_connect("localhost","rduart","u8EnMnxo#","rduart") or exit(mysqli_connect_error());
+        require "../../database.php";
         $sql = "UPDATE consultes SET acabada='1', resposta=\"".$_REQUEST["solucio"]."\" WHERE id_consulta = ".$_REQUEST['id_consulta'];
         try {
             $result = mysqli_query($con,$sql) or exit(mysqli_error($con)); ?>

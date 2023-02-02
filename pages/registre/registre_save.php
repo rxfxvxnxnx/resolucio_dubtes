@@ -12,7 +12,7 @@
 </head>
 <body>
     <?php
-    $con = mysqli_connect("localhost","rduart","u8EnMnxo#","rduart") or exit(mysqli_connect_error());
+    require "../../database.php";
 
     $nom = $_REQUEST["nom"];
     $cognom = $_REQUEST["cognom"];
@@ -44,7 +44,7 @@
             <a href="registre.php"><button>Tornar</button></a>
         </main>
     <?php }else {
-    $sql = "INSERT INTO usuarios VALUES (null,'".$nom."','".$cognom."','".$email."',null,'".$user."','".$pass."', 2)";
+    $sql = "INSERT INTO usuarios VALUES (null,'".$nom."','".$cognom."','".$email."', null,'".$user."','".$pass."', 2)";
     $result = mysqli_query($con,$sql) or exit(mysqli_error($con));
     ?>
     <main class="container">       

@@ -20,8 +20,8 @@ if (empty($_SESSION["usuario"])) {
 </head>
 <body class="container"></body>                
     <?php
-            $con = mysqli_connect("localhost","rduart","u8EnMnxo#","rduart") or exit(mysqli_connect_error());
-            $sql = "SELECT * FROM consultes WHERE id_consulta =".$_REQUEST["id_consulta"];
+        require "../../database.php";
+        $sql = "SELECT * FROM consultes WHERE id_consulta =".$_REQUEST["id_consulta"];
             $consultes = mysqli_query($con,$sql) or exit(mysqli_error($con));
             $consulta = mysqli_fetch_array($consultes)
     ?>

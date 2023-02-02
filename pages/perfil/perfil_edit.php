@@ -20,7 +20,7 @@ if (empty($_SESSION["usuario"])) {
 </head>
 <body class="container">
     <?php
-        $con = mysqli_connect("localhost","rduart","u8EnMnxo#","rduart") or exit(mysqli_connect_error());
+        require "../../database.php";
         $sql = "SELECT * FROM usuarios WHERE usuario = '".$_SESSION["usuario"]."'";
         $usuarios_foto = mysqli_query($con,$sql) or exit(mysqli_error($con));
         $usuario_foto = mysqli_fetch_array($usuarios_foto);

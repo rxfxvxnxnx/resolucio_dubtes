@@ -20,7 +20,7 @@ if (empty($_SESSION["usuario"])) {
 </head>
 <body class="container">
     <?php
-        $con = mysqli_connect("localhost","rduart","u8EnMnxo#","rduart") or exit(mysqli_connect_error());
+        require "../../database.php";
         $sql = "SELECT * FROM usuarios WHERE usuario = '".$_SESSION["usuario"]."'";
         $usuarios_foto = mysqli_query($con,$sql) or exit(mysqli_error($con));
         $usuario_foto = mysqli_fetch_array($usuarios_foto);
@@ -55,7 +55,7 @@ if (empty($_SESSION["usuario"])) {
         <?php 
             $busqueda = $_POST["search"];
 
-            $sql = "SELECT * FROM consultes WHERE acabada = '1' AND (comentari LIKE '%$busqueda%' OR resposta LIKE '%$busqueda%')";
+            $sql = "SELECT * FROM consultes WHERE acabada = '1' AND (comentari LIKE '%$busqueda%' OR resposta LIKE '%$busqueda%') AND resposta!=''";
             $respuestas = mysqli_query($con,$sql) or exit(mysqli_error($con));
 
             while ($respuesta = mysqli_fetch_array($respuestas)) { ?>
@@ -66,6 +66,15 @@ if (empty($_SESSION["usuario"])) {
                                 $sql = "SELECT * FROM usuarios WHERE id_usuario =".$respuesta["usuario_consulta_FK"];
                                 $usuaris_so = mysqli_query($con,$sql) or exit(mysqli_error($con));
                                 $usuari_so = mysqli_fetch_array($usuaris_so);
+                                
+                                if ($usuari_so["perfil_img"] == "") {
+                                    $foto_perfil = "default.png";
+                                } else {
+                                    $foto_perfil = $usuari_so["perfil_img"];
+                                }
+                                ?>
+                                <img class="profile" src="../../img/user_img/<?php echo $foto_perfil ?>">
+                                <?php
                                 echo $usuari_so["nom"]." ".$usuari_so["cognom"];
                                 ?>
                             </h1>
@@ -80,18 +89,18 @@ if (empty($_SESSION["usuario"])) {
                                 $moduls_ex = mysqli_query($con,$sql) or exit(mysqli_error($con));
                                 $modul_ex = mysqli_fetch_array($moduls_ex);
                                 ?>
-                                <h3 class="text_center">
+                                <h4 class="text_center">
                                 <?php
                                 echo $modul_ex["modul"]." ".$modul_ex["uf"];
                                 ?>
-                                </h3>
+                                </h4>
                             </div>
                             <div>
-                                <h3 class="text_center">
+                                <h5 class="text_center">
                                 <?php 
                                 echo $exercici["exercici"];
                                 ?>
-                                </h3>
+                                </h5>
                             </div>
                             <div class="linea"></div>
                             <blockquote>

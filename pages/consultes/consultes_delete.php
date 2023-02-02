@@ -8,7 +8,7 @@
 </head>
 <body onload=window.location="../admin/admin.php">  
 <?php
-    $con = mysqli_connect("localhost","rduart","u8EnMnxo#","rduart") or exit(mysqli_connect_error());
+    require "../../database.php";
     $sql = "DELETE FROM consultes WHERE id_consulta = ".$_REQUEST["id_consulta"];
     $result = mysqli_query($con,$sql) or exit(mysqli_error($con));  
 ?>
