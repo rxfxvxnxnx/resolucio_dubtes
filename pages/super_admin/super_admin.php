@@ -66,7 +66,7 @@ if (empty($_SESSION["usuario"]) || !($_SESSION["permis"] == 0)) {
                             <th>#</th>
                             <th>Nom</th>
                             <th>Usuari</th>
-                            <th>Email</th>
+                            <th>Options</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -93,9 +93,8 @@ if (empty($_SESSION["usuario"]) || !($_SESSION["permis"] == 0)) {
                                 ?>
                             </td>
                             <td>
-                                <?php
-                                echo $usuario_profesor["email"];
-                                ?>
+                                <a href="">Editar</a>
+                                <a href="">Eliminar</a>
                             </td>
                         </tr>
                         <?php
@@ -169,6 +168,11 @@ if (empty($_SESSION["usuario"]) || !($_SESSION["permis"] == 0)) {
                         ?>
                     </tbody>
                     <tfoot>
+                        <tr>
+                            <th colspan="4" class="afegir_superadmin">
+                                <a href="">Afegir Users Alumnes</a>
+                            </th>
+                        </tr>
                     </tfoot>
                 </table>
             </figure>
@@ -253,6 +257,7 @@ if (empty($_SESSION["usuario"]) || !($_SESSION["permis"] == 0)) {
                                 ?>
                             </td>
                             <td>
+                                <a href="">Editar</a>
                                 <a href="">Eliminar</a>
                             </td>
                         </tr>
@@ -262,6 +267,11 @@ if (empty($_SESSION["usuario"]) || !($_SESSION["permis"] == 0)) {
                         ?>
                     </tbody>
                     <tfoot>
+                        <tr>
+                            <th colspan="8" class="afegir_superadmin">
+                                <a href="">Afegir Consultes</a>
+                            </th>
+                        </tr>
                     </tfoot>
                 </table>
             </figure>

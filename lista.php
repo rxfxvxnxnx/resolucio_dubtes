@@ -80,6 +80,65 @@ if (empty($_SESSION["usuario"])) {
                 <input type="submit" value="Enviar" role="button" class="boto">
             </form>
         </article>
+        <article>
+            <h1>Torns.</h1>
+            <?php 
+            $sql = "SELECT * FROM usuarios WHERE permis = 1";
+            $profesors = mysqli_query($con,$sql) or exit(mysqli_error($con));
+
+            while($profesor = mysqli_fetch_array($profesors)) { ?>
+
+            <article>
+                <h3><?php echo $profesor["nom"]." ".$profesor["cognom"].".";
+                $num = 1;
+                $sql = "SELECT * FROM consultes WHERE profesor_FK =".$profesor["id_usuario"]." AND acabada = 0";
+                $llista_torns = mysqli_query($con,$sql) or exit(mysqli_error($con));
+
+                $sql = "SELECT * FROM consultes WHERE profesor_FK =".$profesor["id_usuario"]." AND acabada = 0";
+                $buits = mysqli_query($con,$sql) or exit(mysqli_error($con));
+
+                if (!empty($buit = mysqli_fetch_array($buits))) {
+                ?></h3>
+
+                <table role="grid">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Alumne</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                        <?php
+                        while($llista = mysqli_fetch_array($llista_torns)) { ?>
+                            <th>
+                                <?php
+                                echo $num
+                                ?>
+                            </th>
+                            <th>
+                                <?php
+                                $sql = "SELECT * FROM usuarios WHERE id_usuario=".$llista["usuario_consulta_FK"];
+                                $usuarios_lista = mysqli_query($con,$sql) or exit(mysqli_error($con));
+                                $usuario_lista = mysqli_fetch_array($usuarios_lista);
+                                
+                                echo $usuario_lista["nom"]." ".$usuario_lista["cognom"];
+                                ?>
+                            </th>
+                        <?php } ?>
+                        </tr>
+                    </tbody>
+                    <tfoot>
+
+                    </tfoot>
+                </table>
+                <?php } else {?>
+                    <h5 aria-busy="true">Encara no te dubtes, vols ser el primer?</h5>
+                <?php } ?>
+            </article>
+            <?php } ?>
+        </article>
+
     </main>
 
     <footer id="footer">
