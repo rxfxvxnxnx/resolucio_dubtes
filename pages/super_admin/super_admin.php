@@ -106,7 +106,7 @@ if (empty($_SESSION["usuario"]) || !($_SESSION["permis"] == 0)) {
                     <tfoot>
                         <tr>
                             <th colspan="4" class="afegir_superadmin">
-                                <a href="">Afegir Users Profesors</a>
+                                <a href="./super_admin_profes/create_profesor.php">Afegir Users Profesors</a>
                             </th>
                         </tr>
                     </tfoot>
@@ -418,4 +418,3 @@ if (empty($_SESSION["usuario"]) || !($_SESSION["permis"] == 0)) {
     <script src="../../js/script.js"></script>
 </body>
 </html>
-
