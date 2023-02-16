@@ -108,9 +108,9 @@ if (empty($_SESSION["usuario"])) {
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
                         <?php
                         while($llista = mysqli_fetch_array($llista_torns)) { ?>
+                        <tr>
                             <th>
                                 <?php
                                 echo $num
@@ -123,10 +123,12 @@ if (empty($_SESSION["usuario"])) {
                                 $usuario_lista = mysqli_fetch_array($usuarios_lista);
                                 
                                 echo $usuario_lista["nom"]." ".$usuario_lista["cognom"];
+
+                                $num = $num + 1;
                                 ?>
                             </th>
-                        <?php } ?>
                         </tr>
+                        <?php } ?>
                     </tbody>
                     <tfoot>
 
