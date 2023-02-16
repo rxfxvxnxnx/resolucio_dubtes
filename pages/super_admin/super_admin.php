@@ -122,7 +122,9 @@ if (empty($_SESSION["usuario"]) || !($_SESSION["permis"] == 0)) {
                             <th>#</th>
                             <th>Nom</th>
                             <th>Usuari</th>
+                            <th>Email</th>
                             <th>Options</th>
+                            <th></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -149,8 +151,15 @@ if (empty($_SESSION["usuario"]) || !($_SESSION["permis"] == 0)) {
                                 ?>
                             </td>
                             <td>
-                                <a href="">Editar</a>
-                                <a href="">Eliminar</a>
+                                <?php
+                                echo $usuario_alumno["email"];
+                                ?>
+                            </td>
+                            <td>
+                                <a href=./super_admin_usuarios/eliminar_usuario.php?id_usuario=<?php echo $usuario_alumno["id_usuario"] ?>>Eliminar</a>
+                            </td>
+                            <td>
+                                <a href=./super_admin_usuarios/reset_contraseña.php?id_usuario=<?php echo $usuario_alumno["id_usuario"] ?>>Reset Contraseña</a>
                             </td>
                         </tr>
                         <?php
