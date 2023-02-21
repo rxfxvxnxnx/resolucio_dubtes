@@ -121,7 +121,17 @@ if (empty($_SESSION["usuario"])) {
                                 $sql = "SELECT * FROM usuarios WHERE id_usuario=".$llista["usuario_consulta_FK"];
                                 $usuarios_lista = mysqli_query($con,$sql) or exit(mysqli_error($con));
                                 $usuario_lista = mysqli_fetch_array($usuarios_lista);
-                                
+
+                                if ($usuario_lista["perfil_img"] == "") {
+                                    $foto_perfil = "default.png";
+                                } else {
+                                    $foto_perfil = $usuario_lista["perfil_img"];
+                                }
+                                ?>
+
+                                <img class="profile" src="img/user_img/<?php echo $foto_perfil ?>">
+
+                                <?php
                                 echo $usuario_lista["nom"]." ".$usuario_lista["cognom"];
 
                                 $num = $num + 1;
