@@ -80,11 +80,25 @@ if (empty($_SESSION["usuario"]) || $_SESSION["permis"] == 2) {
                 $modulEx = mysqli_fetch_array($modulsEx);
                 ?>
                 <hgroup>
-                    <h1>Torn de <?php   $sql = "SELECT * FROM usuarios WHERE id_usuario = ".$torn["usuario_consulta_FK"];
+                    <h1>Torn de 
+                        <?php   $sql = "SELECT * FROM usuarios WHERE id_usuario = ".$torn["usuario_consulta_FK"];
                                         $tornsAl = mysqli_query($con,$sql) or exit(mysqli_error($con));
                                         $tornAl = mysqli_fetch_array($tornsAl);
+
+                                        if ($tornAl["perfil_img"] == "") {
+                                            $foto_perfil = "default.png";
+                                        } else {
+                                            $foto_perfil = $tornAl["perfil_img"];
+                                        }
+                                        ?>
+                                        </br>
+
+                                        <img class="profile" src="../../img/user_img/<?php echo $foto_perfil ?>">
+
+                                        <?php
                                         echo $tornAl["nom"]." ".$tornAl["cognom"]; 
-                                        ?>.</h1>
+                                        ?>
+.</h1>
                     <h2><?php echo $modulEx["modul"] ?> - <?php echo $modulEx["uf"] ?></h2>
                 </hgroup>
 
