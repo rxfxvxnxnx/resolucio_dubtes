@@ -33,7 +33,7 @@
             $user_C = true;
         }
     }
-    if (!str_contains($email, "@insdanielblanxart.cat")){ ?>
+    if (!strpos($email, "@insdanielblanxart.cat")){ ?>
         <main class="container">       
             <h1>Has de Utilitzar el Domini @insdanielblanxart.cat</h1>
             <a href="registre.php"><button>Tornar</button></a>
