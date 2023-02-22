@@ -18,7 +18,6 @@ function guardar() {
     mostra = false;
 }
 
-
 // function ojo(){
 //   var contraseña,check;
 

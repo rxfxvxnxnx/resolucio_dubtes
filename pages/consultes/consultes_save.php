@@ -22,11 +22,15 @@ if (empty($_SESSION["usuario"])) {
 <?php
     require "../../database.php";
 
+    $browser = mysqli_real_escape_string($con, htmlspecialchars($_REQUEST["browser"]));
+    $comentari = mysqli_real_escape_string($con, htmlspecialchars($_REQUEST["comentari"]));
+    
+
     $sql = "SELECT * FROM usuarios WHERE usuario = '".$_SESSION["usuario"]."'";
     $usuarios = mysqli_query($con,$sql) or exit(mysqli_error($con));  
     $usuario = mysqli_fetch_array($usuarios);
 
-    $sql = "SELECT * FROM exercicis WHERE exercici ='".$_REQUEST["browser"]."'";
+    $sql = "SELECT * FROM exercicis WHERE exercici ='$browser'";
     $exercicis = mysqli_query($con,$sql) or exit(mysqli_error($con));  
     $exercici = mysqli_fetch_array($exercicis);
 
@@ -37,7 +41,7 @@ if (empty($_SESSION["usuario"])) {
     date_default_timezone_set('Europe/Madrid');
     $time = date("h:i:s a");
 
-    $sql = "INSERT INTO consultes VALUES (null, ".$usuario["id_usuario"].", ".$exercici["id_exercici"].", ".$modul["profesor"].", '".$_REQUEST["comentari"]."', '".$time."', CURDATE(), null, 0);";
+    $sql = "INSERT INTO consultes VALUES (null, ".$usuario["id_usuario"].", ".$exercici["id_exercici"].", ".$modul["profesor"].", '".$comentari."', '".$time."', CURDATE(), null, 0);";
 
     $result = mysqli_query($con,$sql) or exit(mysqli_error($con));  
 

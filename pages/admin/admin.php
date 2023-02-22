@@ -20,7 +20,7 @@ if (empty($_SESSION["usuario"]) || $_SESSION["permis"] == 2) {
 </head>
 <body class="container">               
     <?php
-        $con = mysqli_connect("localhost","rduart","u8EnMnxo#","rduart") or exit(mysqli_connect_error());
+        require "../../database.php";
 
         $sql = "SELECT * FROM usuarios WHERE usuario = '".$_SESSION["usuario"]."'";
         $usuarios = mysqli_query($con,$sql) or exit(mysqli_error($con));
@@ -172,8 +172,8 @@ if (empty($_SESSION["usuario"]) || $_SESSION["permis"] == 2) {
                             <tr>
                                 <th>Ordre</th>
                                 <th>Alumne</th>
+                                <th>Modul</th>
                                 <th>Exercici</th>
-                                <th>Comentari</th>
                                 <th>Data</th>
                                 <th>Hora</th>
                                 <th>Opcions</th>
@@ -192,17 +192,26 @@ if (empty($_SESSION["usuario"]) || $_SESSION["permis"] == 2) {
                                     $alumne = mysqli_fetch_array($alumnes);
                                     echo $alumne["nom"]." ".$alumne["cognom"];
                                     ?>
-                                </td>
-                                <td>     
-                                    <?php                           
+                                </td>                                    
+                                <?php                           
                                     $sql = "SELECT * FROM exercicis WHERE id_exercici =".$consulte["exercici_FK"];
                                     $exercicis = mysqli_query($con,$sql) or exit(mysqli_error($con));
+
                                     $exercici = mysqli_fetch_array($exercicis);
-                                    echo $exercici["exercici"];
+
+                                    $sql = "SELECT * FROM moduls WHERE id_modul = ".$exercici["modul_FK"];
+                                    $modulsLists = mysqli_query($con,$sql) or exit(mysqli_error($con));
+                                    $modulsList = mysqli_fetch_array($modulsLists);
+                                    ?>
+                                <td>
+                                    <?php
+                                    echo $modulsList["modul"]." - ".$modulsList["uf"];
                                     ?>
                                 </td>
-                                <td>
-                                    <?php echo $consulte["comentari"] ?>
+                                <td>     
+                                    <?php
+                                    echo $exercici["exercici"];
+                                    ?>
                                 </td>
                                 <td>
                                     <?php echo $consulte["date"] ?>
@@ -212,6 +221,8 @@ if (empty($_SESSION["usuario"]) || $_SESSION["permis"] == 2) {
                                 </td>
                                 <td>
                                 <a href="admin_delete.php?id_consulta=<?php echo $consulte['id_consulta']?>">Eliminar</a>
+                                
+                                <a href="admin_pre.php?id_consulta=<?php echo $consulte['id_consulta']?>">Corregir</a>
                                 </td>
                             </tr>
                             <?php } ?>

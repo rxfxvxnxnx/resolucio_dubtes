@@ -17,6 +17,8 @@ if (empty($_SESSION["usuario"])) {
     <link rel="shortcut icon" href="img/icon.png" type="image/x-icon">
     <link rel="stylesheet" href="css/pico.min.css">
     <link rel="stylesheet" href="css/style.css">
+
+
 </head>
 <body class="container">              
     <?php
@@ -55,29 +57,80 @@ if (empty($_SESSION["usuario"])) {
             <h1>Formulari.</h1>
             <form action="pages/consultes/consultes_save.php" method="POST">
 
-                    <label for="exercici">Exercici:</label>
-                        <input type="search" list="browsers" name="browser" id="browser" placeholder="Busca el exercici...">
-                        <datalist id="browsers">
-                            <?php 
-                                $sql = "SELECT * FROM exercicis";
-                                $exercicis_select = mysqli_query($con,$sql) or exit(mysqli_error($con));
-                            ?>
-                            <?php 
-                                while($exercici_select = mysqli_fetch_array($exercicis_select)){ 
+            <label for="exercici">Exercici:</label>
+            <input type="search" list="browsers" name="browser" id="browser" placeholder="Busca el exercici..."  required>
+            <datalist id="browsers">
+                <?php 
+                    $sql = "SELECT * FROM exercicis";
+                    $exercicis_select = mysqli_query($con,$sql) or exit(mysqli_error($con));
+                ?>
+                <?php 
+                    while($exercici_select = mysqli_fetch_array($exercicis_select)){ 
+                        $sql = "SELECT * FROM moduls WHERE id_modul = ".$exercici_select["modul_FK"];
+                        $moduls_exercici = mysqli_query($con,$sql) or exit(mysqli_error($con));
+                        $modul_exercici = mysqli_fetch_array($moduls_exercici);
+                ?>
+                <option value="<?php echo $exercici_select["exercici"] ?>"><?php echo $modul_exercici["modul"] ?> - <?php echo $modul_exercici["uf"] ?> - <?php echo $exercici_select["exercici"] ?></option>
+                <?php } ?>
+            </datalist>
+            <script>
+                document.getElementById('browser').addEventListener('change', function() {
+                    var searchValue = this.value.toLowerCase().trim();
+                    var validOption = false;
+                    var options = document.getElementById('browsers').options;
+                    var closestOption = null;
+                    var closestDistance = Infinity;
+                    
+                    for (var i = 0; i < options.length; i++) {
+                        var optionValue = options[i].value.toLowerCase();
+                        if (optionValue === searchValue) {
+                            validOption = true;
+                            closestOption = options[i];
+                            break;
+                        } else {
+                            var distance = levenshteinDistance(optionValue, searchValue);
+                            if (distance < closestDistance) {
+                                closestDistance = distance;
+                                closestOption = options[i];
+                            }
+                        }
+                    }
+                    
+                    if (!validOption) {
+                        this.value = closestOption.value;
+                    }
+                });
 
-                                $sql = "SELECT * FROM moduls WHERE id_modul = ".$exercici_select["modul_FK"];
-                                $moduls_exercici = mysqli_query($con,$sql) or exit(mysqli_error($con));
-                                $modul_exercici = mysqli_fetch_array($moduls_exercici);
+                // Calculates the Levenshtein distance between two strings
+                function levenshteinDistance(s, t) {
+                    var d = [];
+                    for (var i = 0; i <= s.length; i++) {
+                        d[i] = [i];
+                    }
+                    for (var j = 1; j <= t.length; j++) {
+                        d[0][j] = j;
+                    }
+                    for (var i = 1; i <= s.length; i++) {
+                        for (var j = 1; j <= t.length; j++) {
+                            if (s.charAt(i - 1) === t.charAt(j - 1)) {
+                                d[i][j] = d[i - 1][j - 1];
+                            } else {
+                                var deletion = d[i - 1][j] + 1;
+                                var insertion = d[i][j - 1] + 1;
+                                var substitution = d[i - 1][j - 1] + 1;
+                                d[i][j] = Math.min(deletion, insertion, substitution);
+                            }
+                        }
+                    }
+                    return d[s.length][t.length];
+                }
+            </script>
 
-                            ?>
-                                <option value="<?php echo $exercici_select["exercici"] ?>"><?php echo $modul_exercici["modul"] ?> - <?php echo $modul_exercici["uf"] ?> - <?php echo $exercici_select["exercici"] ?></option>
-                            <?php } ?>
-                        </datalist>
 
-                <label for="comentari">Comentari:</label>
-                <textarea name="comentari" id="comentari" type="text" required></textarea>
+            <label for="comentari">Comentari:</label>
+            <textarea name="comentari" id="comentari" type="text" required></textarea>
 
-                <input type="submit" value="Enviar" role="button" class="boto">
+            <input type="submit" value="Enviar" role="button" class="boto">
             </form>
         </article>
         <article>
@@ -111,12 +164,12 @@ if (empty($_SESSION["usuario"])) {
                         <?php
                         while($llista = mysqli_fetch_array($llista_torns)) { ?>
                         <tr>
-                            <th>
+                            <td>
                                 <?php
                                 echo $num
                                 ?>
-                            </th>
-                            <th>
+                            </td>
+                            <td>
                                 <?php
                                 $sql = "SELECT * FROM usuarios WHERE id_usuario=".$llista["usuario_consulta_FK"];
                                 $usuarios_lista = mysqli_query($con,$sql) or exit(mysqli_error($con));
@@ -136,7 +189,7 @@ if (empty($_SESSION["usuario"])) {
 
                                 $num = $num + 1;
                                 ?>
-                            </th>
+                            </td>
                         </tr>
                         <?php } ?>
                     </tbody>
