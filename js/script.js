@@ -1,4 +1,4 @@
-var mostra = false;
+var mostra = true;
 function mostrar() {
     if (mostra==false) {
         veure();
