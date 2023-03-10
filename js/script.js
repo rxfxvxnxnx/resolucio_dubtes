@@ -1,5 +1,4 @@
 var mostra = false;
-var poi=[];
 function mostrar() {
     if (mostra==false) {
         veure();
