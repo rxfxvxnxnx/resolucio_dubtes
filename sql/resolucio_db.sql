@@ -11,7 +11,7 @@ CREATE TABLE permis (
     permis VARCHAR(255)
 
 );
-oihugytrdx
+
 /* Tabla de alumnos */
 CREATE TABLE usuarios (
     id_usuario INT PRIMARY KEY AUTO_INCREMENT,

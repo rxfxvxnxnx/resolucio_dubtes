@@ -1,5 +1,4 @@
-funcion mostra(){
-};
+var mostra = false;
 
 function mostrar() {
     if (mostra==false) {
